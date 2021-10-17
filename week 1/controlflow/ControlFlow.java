@@ -113,9 +113,12 @@ public class ControlFlow{
     public static int[] orderArr(int[] intArr){
         int arraySize = intArr.length;
         int[] newArray = new int[arraySize];
+        int temp;
         // logic
         for(int i = 0; i < intArr.length; i++){
             newArray[i] = intArr[i];
+        }
+        for(int i = 0; i < intArr.length; i++){
             for(int j = i + 1; j < intArr.length; j++){
                 if(intArr[i] > intArr[j]){
                     newArray[i] = intArr[j]; 
