@@ -1,6 +1,6 @@
 Go line by line, and explain what's happening in each line.
 
-int score = 80; // A variable of type int and of name score is declared and is assigned a value of 80;
+int score = 80; // A variable of type int and of name score is declared and is assigned a value of 80
 
 String result; // A variable named result with type of string is being declared with an empty value
 
@@ -12,4 +12,4 @@ if (score == 80) { // Control flow statement of if with a conditional statement 
 	result = "You did not pass. Try again!"; // if score < 80, string result is assigned the value "You did not pass. Try again!"
 }
 
-System.out.println(result); // Prints out the value of the string result. -- will print "You Passed!" because score has the value of 80
+System.out.println(result); // Class System with class out uses method println to print out the value of the string result. -- will print "You Passed!" because score has the value of 80
