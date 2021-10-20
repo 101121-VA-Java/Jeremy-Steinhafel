@@ -2,7 +2,7 @@ Go line by line, and explain what's happening in each line.
 
 int score = 80; // A variable of type int and of name score is declared and is assigned a value of 80;
 
-String result; // A variable named result with type of string is being declared with an 
+String result; // A variable named result with type of string is being declared with an empty value
 
 if (score == 80) { // Control flow statement of if with a conditional statement checking to see if the value of score is 80. 
 	result = "You passed!"; // if the conditional statement above is true then the string result is assigned the value "You passed!"
