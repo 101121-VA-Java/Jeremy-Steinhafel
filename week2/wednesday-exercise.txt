@@ -1,0 +1,15 @@
+Go line by line, and explain what's happening in each line.
+
+int score = 80; // A variable of type int and of name score is declared and is assigned a value of 80;
+
+String result; // A variable named result with type of string is being declared with an 
+
+if (score == 80) { // Control flow statement of if with a conditional statement checking to see if the value of score is 80. 
+	result = "You passed!"; // if the conditional statement above is true then the string result is assigned the value "You passed!"
+} else if (score > 80) { // A second control flow statement with a conditional checking to see whether the value of score is above 80
+	result = "You did great!"; // if the above conditional statement is true then the string result is assigned the value here
+} else { // else, meaning if no previous conditions were met, or score is not greater than or equal to 80 then execute the following
+	result = "You did not pass. Try again!"; // if score < 80, string result is assigned the value "You did not pass. Try again!"
+}
+
+System.out.println(result); // Prints out the value of the string result. -- will print "You Passed!" because score has the value of 80
