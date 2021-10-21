@@ -1,0 +1,52 @@
+public static void main(String[] args) { // public access modifier; static meaning that main belongs to a type itself rather than an instance of that type; void meaning that it hase no return type; the main method accepts String[] args as a default parameter for execution
+	String[] foodTypes = getFoodTypes(); // An array of strings called foodTypes is being declared and initialized with value returned by the method getFoodTypes; the value of getFoodTypes is the string array {"breakfast", "lunch", "dinner", "dessert", "snack"}
+	String myType = foodTypes[2]; // a string called myType is being declared and initialized with the value from a string array with the index location of 2; the value of the array at index of 2 = "dinner" and therefore myType is assigned the value of "dinner"
+
+	String[] foodsOfMyType = getFoodsByType(myType); // A String array with name foodsOfMyType is being declared and initialized with the value of the method getFoodsByType with the parameter of myType; The value of myType was previously found to be "dinner" above; There the getFoodsByType method will execute with the value "dinner" 
+	
+	for (String food : foodsOfMyType) { // an advanced for loop loops through the number of foods in foodsOfMyType; foodsOfMyType will execute the case "dinner" as established in the previous line
+		System.out.println(food); // will print out the array foods from the case "dinner" line by line; the output will be "curry", "stir fry", "burger"
+	}
+}
+
+public static String[] getFoodTypes() { // a method called getFoodTypes with public access modifier, static type, and return type of a string array is being defined; Contains no parameters
+	String[] foodTypes = {"breakfast","lunch","dinner","dessert","snack"}; // A string array called foodTypes is being declared and initialized with the subsequent array values
+	return foodTypes; // the method is returning the previously defind array when called
+}
+
+public static String[] getFoodsByType(String type) { // a method called getFoodsByType with a public access modifier, static type, return type of a string array is being defined;it accepts a string as a parameter called type
+	String[] foods = new String[3]; //a string array called foods is being declared and initialized with 3 values
+
+	switch(type) { // a switch operator is created with the conditional parameter of the string type
+	case "breakfast": // the first case of the switch operator that checks against the string type defined above; if type value = "breakfast" then the following code will execute
+		foods[0] = "pancakes"; // the first element in the foods String array established above before the switch operator
+		foods[1] = "cereal"; // the second element in the foods string array
+		foods[2] = "omelette"; // the third element in the foods string array
+		break; // declaring the end of the "breakfast" switch case
+	case "lunch": // the second case of the switch operator that checks against the string type defined above; if type value = "lunch" then the following code will execute
+		foods[0] = "sandwich"; // the first element in the foods String array established above before the switch operator
+		foods[1] = "salad"; // the second element in the foods string array
+		foods[2] = "soup"; // the third element in the foods string array
+		break; // declaring the end of the "lunch" switch case
+	case "dinner": // the third case of the switch operator that checks against the string type defined above; if type value = "dinner" then the following code will execute
+		foods[0] = "curry"; // the first element in the foods String array established above before the switch operator
+		foods[1] = "stir fry"; // the second element in the foods string array
+		foods[2] = "burger"; // the third element in the foods string array
+		break; // declaring the end of the "dinner" switch case
+	case "dessert": // the fourth case of the switch operator that checks against the string type defined above; if type value = "dessert" then the following code will execute
+		foods[0] = "cake"; // the first element in the foods String array established above before the switch operator
+		foods[1] = "ice cream"; // the second element in the foods string array
+		foods[2] = "candy"; // the third element in the foods string array
+		break; // declaring the end of the "dinner" switch case
+	case "snack": // the fifth case of the switch operator that checks against the string type defined above; if type value = "snack" then the following code will execute
+		foods[0] = "chips"; // the first element in the foods String array established above before the switch operator
+		foods[1] = "apple"; // the second element in the foods string array
+		foods[2] = "samosa"; // the third element in the foods string array
+		break; // declaring the end of the "dinner" switch case
+	default: // if none of the previous cases are called using the string type then the default case will execute
+		// add your own
+		break; // declaring the end of the default switch case
+	}
+
+	return foods; //returning the string array foods whenever the method is called
+}
