@@ -1,0 +1,24 @@
+public class Food { // a class named Food with a public access modifier is being created
+	public String name; // a string with the name name is being declared with a public access modifier meaning that the string variable is accessible to outside instances of the object
+	public String type; // a string with the name type is being declared with a public access modifier meaning that the string variable is accessible to outside instances of the object
+
+	public Food(String name, String type) { // a public method call for a constructor named Food is being created that takes in parameters name and type of type string; variables declared previously
+		this.name = name; // this keyword refers to the specific instance of the variable within the method; this.name assigns this method's use of name to the variable name that is passed in as a parameter
+		this.type = type; // this keyword refers to the specific instance of the variable within the method; this.type assigns this method's use of type to the variable type that is passed in as a parameter
+	}
+
+	public void cook() { // a public method called cook with no retun type and no parameters is being created 
+		if (!name.contains("cooked")) { //an if statement with a conditional that checks to see if the string variable name does not contain the string "cooked"
+			name = "cooked " + name; // this line executes if the name does not contain the string cooked; it will then add the string "cooked" to the name variable
+		}
+	}
+}
+
+public class Main { // a class named Main with a public access modifier is being created 
+	public static void main(String[] args) { // this main method indicates to the Java compiler where to being executing the code; it accepts the standard string array of args as a parameter; it has no return type
+		Food myFood = new Food("potato", "vegetable"); // a new instance of the class Food is being created as an object called myFood; two parameters are being passed into the class Food, name and type respectfully
+		myFood.cook(); //the object myFood is calling the public method cook that will add "cooked" to the name of the food passed in
+
+		System.out.println(myFood.name); // prints out "cooked potato" to the console
+	}
+}
