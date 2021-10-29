@@ -1,0 +1,113 @@
+package com.revature.controllers;
+
+import java.util.Scanner;
+
+// Import Customer Service and Model
+
+// Import Employee Service and Model
+import com.revature.models.Employee;
+import com.revature.services.EmployeeService;
+
+// Import Exception used for both Customer and Employee
+import com.revature.exceptions.EmailAlreadyExistsException;
+
+public class RegisterController {
+	
+	private static Scanner sc = new Scanner(System.in);
+
+	public static void registrationMode() {
+		boolean flag = true;
+		while(flag) {
+			System.out.println("1: Register as a new Customer"
+					+ "\n2: Register as a new Employee"
+					+ "\n3: Return to the Main Menu");
+			
+			// take in user input
+			String input = sc.nextLine();
+			switch(input){
+			case "1":
+				// Start Customer Registration
+				System.out.println("Customer Registration:");
+				System.out.println();
+				customerRegistration();
+				flag = false;
+				break;
+			case "2":
+				// Start Employee Registration
+				System.out.println("Employee Registration:");
+				System.out.println();
+				employeeRegistration();
+				flag = false;
+				break;
+			case "3":
+				// return to main menu
+				WelcomeController.welcomeScreen();
+				flag = false;
+				break;
+			default:
+				System.out.println("Invalid input, please select an option 1-3.");
+				System.out.println();
+			}
+		}
+	}
+	
+	public static void customerRegistration() {
+		
+		System.out.println("Please Enter Your First Name:");
+		String firstName = sc.nextLine();
+		
+		System.out.println("Please Enter Your Last Name:");
+		String lastName = sc.nextLine();
+		
+		System.out.println("Please Enter Your Email:");
+		String email = sc.nextLine();
+		
+		String password = passwordCheck();
+		
+		System.out.println("Returning to the main menu...");
+		WelcomeController.welcomeScreen();
+		
+	}
+
+	private static EmployeeService es = new EmployeeService();
+	
+	public static void employeeRegistration() {
+		
+		System.out.println("Please Enter Your Employee ID Number:");
+		int employeeID = sc.nextInt();
+		sc.nextLine();
+		
+		System.out.println("Please Enter Your First Name:");
+		String firstName = sc.nextLine();
+		
+		System.out.println("Please Enter Your Last Name:");
+		String lastName = sc.nextLine();
+		
+		System.out.println("Please Enter Your Email:");
+		String email = sc.nextLine();
+		
+		String password = passwordCheck();
+		
+		Employee newEmployee = new Employee(employeeID, firstName, lastName, email, password);
+		
+		try {
+			newEmployee = es.addEmployee(newEmployee);
+			System.out.println("Welcome " + newEmployee.getFirstName() + "!");
+		} catch (EmailAlreadyExistsException e) {
+			System.out.println("An Account with this email already exists. \n Please try to register again or login to your account.");
+		}
+		
+		System.out.println("Returning to the main menu...");
+		WelcomeController.welcomeScreen();
+		
+	}
+
+	public static String passwordCheck() {
+		System.out.println("Please Enter Your Password (Must be at least 8 character long):");
+		String password = sc.nextLine();
+		if(password.trim().length() < 8) {
+			passwordCheck();
+		} 
+		return password;
+	}
+}
