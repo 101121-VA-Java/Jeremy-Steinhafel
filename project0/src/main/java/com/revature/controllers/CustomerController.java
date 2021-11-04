@@ -2,8 +2,11 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
-public class CustomerController {
+import com.revature.services.SkiServices;
 
+public class CustomerController {
+	
+	private static SkiServices ss = new SkiServices();
 	private static Scanner sc = new Scanner(System.in);	
 	
 	public static void customerDashboard() {
@@ -21,21 +24,25 @@ public class CustomerController {
 			switch(input){
 			case "1":
 				// view shop method
-				System.out.println();
+				System.out.println("Shop Inventory");
 				flag = false;
+				shopInventory();
 				break;
 			case "2":
 				// View Cart
-				System.out.println();
+				System.out.println("Viewing Your Cart");
 				flag = false;
+				viewCart();
 				break;
 			case "3":
 				// View Order History
-				System.out.println();
+				System.out.println("Your Order History");
+				orderHistory();
 				flag = false;
 				break;
 			case "4":
 				// Log Out
+				System.out.println("You Have Successfully Logged Out");
 				WelcomeController.welcomeScreen();
 				flag = false;
 				break;
@@ -44,6 +51,27 @@ public class CustomerController {
 				System.out.println();
 			}
 		}
+	}
+	
+	public static void shopInventory() {
+		ss.showInventory();
+		System.out.println("Please Enter the Item Number for the Skis you would like to Purchase");
+		System.out.println("Or Press 0 to Return to the Customer Dashboard:");
+		int choice = sc.nextInt();
+		sc.nextLine();
+		if(choice == 0){
+			customerDashboard();
+		} else {
+			ss.moveToCart(choice);
+		}
+	}
+	
+	public static void viewCart() {
+		
+	}
+	
+	public static void orderHistory() {
+		
 	}
 	
 }

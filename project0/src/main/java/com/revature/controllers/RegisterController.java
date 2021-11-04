@@ -3,6 +3,8 @@ package com.revature.controllers;
 import java.util.Scanner;
 
 // Import Customer Service and Model
+import com.revature.models.Customer;
+import com.revature.services.CustomerService;
 
 // Import Employee Service and Model
 import com.revature.models.Employee;
@@ -13,6 +15,7 @@ import com.revature.exceptions.EmailAlreadyExistsException;
 
 public class RegisterController {
 	
+	private static CustomerService cs = new CustomerService();
 	private static Scanner sc = new Scanner(System.in);
 
 	public static void registrationMode() {
@@ -64,8 +67,17 @@ public class RegisterController {
 		
 		String password = passwordCheck();
 		
+		try {
+			Customer c = new Customer(firstName, lastName, email, password);
+			cs.addCustomer(c);
+		} catch (EmailAlreadyExistsException e) {
+			System.out.println("Email is Already in use! Please login or register a different email address...");
+		}
+		
 		System.out.println("Returning to the main menu...");
 		WelcomeController.welcomeScreen();
+		
+		
 		
 	}
 
@@ -92,7 +104,7 @@ public class RegisterController {
 		
 		try {
 			newEmployee = es.addEmployee(newEmployee);
-			System.out.println("Welcome " + newEmployee.getFirstName() + "!");
+			System.out.println("Welcome " + newEmployee.getFirstName() + "! Registration Successful");
 		} catch (EmailAlreadyExistsException e) {
 			System.out.println("An Account with this email already exists. \n Please try to register again or login to your account.");
 		}

@@ -45,5 +45,11 @@ public class EmployeeList implements EmployeeDao {
 		employees.set(t.getEmployeeID(), t);
 		return true;
 	}
+	
+	@Override
+	public Employee remove(Employee t) {
+		employees.remove(t);
+		return t;
+	}
 
 }

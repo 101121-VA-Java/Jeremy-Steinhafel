@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.repositories.EmployeeDao;
 import com.revature.repositories.EmployeeList;
+import com.revature.exceptions.LoginException;
 import com.revature.exceptions.EmailAlreadyExistsException;
 import com.revature.models.Employee;
 
@@ -28,5 +29,12 @@ public class EmployeeService {
 		}
 		return null;
 	}
-
+	
+	public Employee login(String email, String password) throws LoginException {
+		Employee emp = this.getEmployeeByEmail(email);
+		if(emp == null || !emp.getPassword().equals(password)) {
+			throw new LoginException();
+		}
+		return emp;
+	}
 }
