@@ -16,9 +16,8 @@ import com.revature.exceptions.EmailAlreadyExistsException;
 public class RegisterController {
 	
 	private static CustomerService cs = new CustomerService();
-	private static Scanner sc = new Scanner(System.in);
 
-	public static void registrationMode() {
+	public static void registrationMode(Scanner sc) {
 		boolean flag = true;
 		while(flag) {
 			System.out.println("1: Register as a new Customer"
@@ -32,14 +31,14 @@ public class RegisterController {
 				// Start Customer Registration
 				System.out.println("Customer Registration:");
 				System.out.println();
-				customerRegistration();
+				customerRegistration(sc);
 				flag = false;
 				break;
 			case "2":
 				// Start Employee Registration
 				System.out.println("Employee Registration:");
 				System.out.println();
-				employeeRegistration();
+				employeeRegistration(sc);
 				flag = false;
 				break;
 			case "3":
@@ -54,7 +53,7 @@ public class RegisterController {
 		}
 	}
 	
-	public static void customerRegistration() {
+	public static void customerRegistration(Scanner sc) {
 		
 		System.out.println("Please Enter Your First Name:");
 		String firstName = sc.nextLine();
@@ -65,7 +64,7 @@ public class RegisterController {
 		System.out.println("Please Enter Your Email:");
 		String email = sc.nextLine();
 		
-		String password = passwordCheck();
+		String password = passwordCheck(sc);
 		
 		try {
 			Customer c = new Customer(firstName, lastName, email, password);
@@ -83,7 +82,7 @@ public class RegisterController {
 
 	private static EmployeeService es = new EmployeeService();
 	
-	public static void employeeRegistration() {
+	public static void employeeRegistration(Scanner sc) {
 		
 		System.out.println("Please Enter Your Employee ID Number:");
 		int employeeID = sc.nextInt();
@@ -98,7 +97,7 @@ public class RegisterController {
 		System.out.println("Please Enter Your Email:");
 		String email = sc.nextLine();
 		
-		String password = passwordCheck();
+		String password = passwordCheck(sc);
 		
 		Employee newEmployee = new Employee(employeeID, firstName, lastName, email, password);
 		
@@ -114,11 +113,11 @@ public class RegisterController {
 		
 	}
 
-	public static String passwordCheck() {
+	public static String passwordCheck(Scanner sc) {
 		System.out.println("Please Enter Your Password (Must be at least 8 character long):");
 		String password = sc.nextLine();
 		if(password.trim().length() < 8) {
-			passwordCheck();
+			passwordCheck(sc);
 		} 
 		return password;
 	}

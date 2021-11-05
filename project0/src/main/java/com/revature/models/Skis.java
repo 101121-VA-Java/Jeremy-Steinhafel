@@ -18,7 +18,7 @@ public class Skis {
 		this.model = model;
 		this.inStock = inStock;
 	}
-
+	
 	public Skis(String brand, String model, double price, String offerStatus, int inStock) {
 		super();
 		this.brand = brand;	
@@ -26,6 +26,16 @@ public class Skis {
 		this.price = price;
 		this.offerStatus = offerStatus;
 		this.inStock = inStock;
+	}
+
+	public Skis(String brand, String model, double price, String offerStatus, int inStock, int customerID) {
+		super();
+		this.brand = brand;	
+		this.model = model;
+		this.price = price;
+		this.offerStatus = offerStatus;
+		this.inStock = inStock;
+		this.customerID = customerID;
 	}
 	
 	public int getCustomerID() {

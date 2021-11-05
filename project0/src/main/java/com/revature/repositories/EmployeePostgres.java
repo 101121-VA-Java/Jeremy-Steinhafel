@@ -79,11 +79,11 @@ public class EmployeePostgres implements EmployeeDao {
 			ps.setInt(1, employee.getEmployeeID());
 			ps.setString(2, employee.getFirstName());
 			ps.setString(3, employee.getLastName());
-			ps.setString(3, employee.getEmail());
-			ps.setString(3, employee.getPassword());
+			ps.setString(4, employee.getEmail());
+			ps.setString(5, employee.getPassword());
 			
 			//ResultSet rs = ps.executeQuery();
-			ps.executeQuery();
+			ps.executeUpdate();
 			
 //			if(rs.next()) {
 //				genID = rs.getInt("e_id");

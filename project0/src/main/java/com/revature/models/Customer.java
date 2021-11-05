@@ -7,6 +7,7 @@ public class Customer {
 	private String lastName;
 	private String email;
 	private String password;
+	private boolean loggedIn;
 
 	public Customer() {
 		super();
@@ -27,6 +28,25 @@ public class Customer {
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+	}
+	
+	public Customer(int customerID, String firstName, String lastName, String email, String password,
+			boolean loggedIn) {
+		super();
+		this.customerID = customerID;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.loggedIn = loggedIn;
+	}
+	
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
 	}
 
 	public int getCustomerID() {

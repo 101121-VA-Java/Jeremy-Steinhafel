@@ -10,9 +10,8 @@ public class LoginController {
 	
 	private static CustomerService cs = new CustomerService();
 	private static EmployeeService es = new EmployeeService();
-	private static Scanner sc = new Scanner(System.in);
 	
-	public static void userLogin() {
+	public static void userLogin(Scanner sc) {
 		System.out.println("Press 1 for customer, 2 for employee:");
 		String user = sc.nextLine();
 		
@@ -28,42 +27,33 @@ public class LoginController {
 			try {
 				cs.login(email, password);
 				System.out.println("Log In Successful!");
-				CustomerController.customerDashboard();
+				CustomerController.customerDashboard(sc);
 			} catch (LoginException e) {
 				System.out.println("Invalid Login, Press 1 to Try Again or Press 2 Register for an Account:");
 				String input = sc.nextLine();
 				if(input.equals("1")) {
-					userLogin();
+					userLogin(sc);
 				} else {
-					RegisterController.registrationMode();
+					RegisterController.registrationMode(sc);
 				}
 			}
 		}
 		if(user.equals("2")) {
 			try {
 				es.login(email, password);
-				EmployeeController.employeeDashboard();
+				EmployeeController.employeeDashboard(sc);
 			} catch (LoginException e) {
 				System.out.println("Invalid Login, Press 1 to Try Again or Press 2 Register for an Account:");
 				String input = sc.nextLine();
 				if(input.equals("1")) {
-					userLogin();
+					userLogin(sc);
 				} else {
-					RegisterController.registrationMode();
+					RegisterController.registrationMode(sc);
 				}
 			}
 		}
 		else {
-			userLogin();
+			userLogin(sc);
 		}
-		
-		
-		// display success + welcome message 
-		
-		// if email is customer display customer dashboard
-		// if email is employee display employee dashboard
-			// if email is owner display owner dashboard
-
-		
 	}
 }

@@ -8,9 +8,8 @@ import com.revature.services.SkiServices;
 public class EmployeeController {
 	
 	private static SkiServices ss = new SkiServices();
-	private static Scanner sc = new Scanner(System.in);	
 	
-	public static void employeeDashboard() {
+	public static void employeeDashboard(Scanner sc) {
 		// print out menu
 		boolean flag = true;
 		while(flag) {
@@ -28,13 +27,13 @@ public class EmployeeController {
 				// Add item
 				System.out.println("Add an Item to the Shop:");
 				flag = false;
-				addItemToShop();
+				addItemToShop(sc);
 				break;
 			case "2":
 				// Remove an item from the shop
 				System.out.println("Remove an Item from the Shop:");
 				flag = false;
-				removeItemFromShop();
+				removeItemFromShop(sc);
 				break;
 			case "3":
 				// View Offers
@@ -60,7 +59,7 @@ public class EmployeeController {
 		}
 	}
 	
-	public static void addItemToShop() {
+	public static void addItemToShop(Scanner sc) {
 		System.out.println("Input the brand:");
 		String brand = sc.nextLine();
 		System.out.println("Input the model:");
@@ -76,10 +75,10 @@ public class EmployeeController {
 		Skis s = new Skis(brand, model, price, offer, inStock);
 		s = ss.addSkis(s);
 		System.out.println("Successfully added " + s.getBrand() + " " + s.getModel() + " " + s.getPrice() + " " + s.getOfferStatus() + " " + s.getInStock());
-		employeeDashboard();
+		employeeDashboard(sc);
 	}
 	
-	public static void removeItemFromShop() {
+	public static void removeItemFromShop(Scanner sc) {
 		System.out.println("Input the model you would like to remove:");
 		String model = sc.nextLine();
 		System.out.println("Input the amount in inventory to remove:");
@@ -91,11 +90,28 @@ public class EmployeeController {
 		if(s != null) {
 			System.out.println("Product Remaining: " + s.getBrand() + " " + s.getModel() + " " + s.getPrice() + " " + s.getOfferStatus() + " " + s.getInStock());
 		}
-		employeeDashboard();
+		employeeDashboard(sc);
 	}
 	
-	public static void viewOffers() {
-		
+	public static void viewOffers(Scanner sc) {
+		ss.showOffers();
+		System.out.print("To Accept an Offer Press 1, To Reject an Offer Press 2 Or Press 3 to Return to the Dashboard:");
+		String input001 = sc.nextLine();
+		if(input001.equals("1")) {
+			System.out.println("Enter the Number of the Item You Would Accept");
+			int item = sc.nextInt();
+			sc.nextLine();
+			ss.acceptOffer(item);
+			viewOffers(sc);
+		} else if (input001.equals("2")) {
+			System.out.println("Enter the Number of the Item You Would Reject");
+			int item = sc.nextInt();
+			sc.nextLine();
+			ss.rejectOffer(item);
+			viewOffers(sc);
+		} else {
+			employeeDashboard(sc);
+		}
 	}
 	
 	public static void viewPayments() {

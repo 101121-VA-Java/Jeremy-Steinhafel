@@ -4,9 +4,10 @@ import java.util.Scanner;
 
 public class WelcomeController {
 	
-	private static Scanner sc = new Scanner(System.in);
+	public static Scanner sc = new Scanner(System.in);
 
 	public static void welcomeScreen() {
+		
 		boolean flag = true;
 		while(flag) {
 			// print out menu
@@ -22,14 +23,14 @@ public class WelcomeController {
 				System.out.println("Login Below...");
 				System.out.println();
 				// call login controller method
-				LoginController.userLogin();
+				LoginController.userLogin(sc);
 				flag = false;
 				break;
 			case "2":
 				System.out.println("Register Your Account Below...");
 				System.out.println();
 				// call register controller method
-				RegisterController.registrationMode();
+				RegisterController.registrationMode(sc);
 				flag = false;
 				break;
 			case "3":
@@ -39,9 +40,10 @@ public class WelcomeController {
 			default:
 				System.out.println("Invalid input, please select an option 1-3.");
 				System.out.println();
+				welcomeScreen();
 			}
 		}
-	//sc.close();
+		sc.close();
 	}
 	
 	public static boolean returnToWelcome() {
