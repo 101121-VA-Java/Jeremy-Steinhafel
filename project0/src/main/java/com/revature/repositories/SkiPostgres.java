@@ -98,8 +98,8 @@ public class SkiPostgres implements SkiDao {
 	}
 	
 	public boolean update(Skis skis) {
-		String sql = "update skis set s_brand = ?, s_price = ?, s_offer_status = ?, s_in_stock = ?, s_customer_id = ? "
-				+ "where s_model = ?;";
+		String sql = "update skis set s_brand = ?, s_price = ?, s_offer_status = ?, s_in_stock = ? "
+				+ "where s_customer_id = ? and s_model = ?;";
 		
 		int rowsChanged = -1;
 		
@@ -125,13 +125,14 @@ public class SkiPostgres implements SkiDao {
 	}
 	
 	public Skis remove(Skis skis) {
-		String sql = "delete from skis where s_model = ?;";
+		String sql = "delete from skis where s_customer_id = ? and s_model = ?;";
 		int rowsChanged = -1;
-		String id = skis.getModel();
+		int id = skis.getCustomerID();
+		String model = skis.getModel();
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, id);
-			
+			ps.setInt(1, id);
+			ps.setString(2, model);
 			rowsChanged = ps.executeUpdate();
 		}
 		catch (SQLException | IOException e){ 

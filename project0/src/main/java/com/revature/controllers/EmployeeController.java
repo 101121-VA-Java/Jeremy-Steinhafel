@@ -39,10 +39,12 @@ public class EmployeeController {
 				// View Offers
 				System.out.println("View Offers For Skis");
 				flag = false;
+				viewOffers(sc);
 				break;
 			case "4":
 				// View Payments
 				System.out.println("View Payments");
+				viewPayments(sc);
 				flag = false;
 				break;
 			case "5":
@@ -95,7 +97,9 @@ public class EmployeeController {
 	
 	public static void viewOffers(Scanner sc) {
 		ss.showOffers();
+		System.out.println();
 		System.out.print("To Accept an Offer Press 1, To Reject an Offer Press 2 Or Press 3 to Return to the Dashboard:");
+		System.out.println();
 		String input001 = sc.nextLine();
 		if(input001.equals("1")) {
 			System.out.println("Enter the Number of the Item You Would Accept");
@@ -114,7 +118,17 @@ public class EmployeeController {
 		}
 	}
 	
-	public static void viewPayments() {
+	public static void viewPayments(Scanner sc) {
+		ss.showPayments();
+		System.out.print("Press Any Number to Return to the Dashboard:");
+		int input001 = sc.nextInt();
+		sc.nextLine();
+		if(input001 > 0) {
+			employeeDashboard(sc);
+		} else {
+			System.out.println("Invalid Input");
+			viewPayments(sc);
+		}
 		
 	}
 	

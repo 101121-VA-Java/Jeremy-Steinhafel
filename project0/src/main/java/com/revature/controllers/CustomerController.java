@@ -3,10 +3,12 @@ package com.revature.controllers;
 import java.util.Scanner;
 
 import com.revature.services.SkiServices;
+import com.revature.services.CustomerService;
 
 public class CustomerController {
 	
 	private static SkiServices ss = new SkiServices();
+	private static CustomerService cs = new CustomerService();
 	
 	public static void customerDashboard(Scanner sc) {
 		// print out menu
@@ -41,6 +43,7 @@ public class CustomerController {
 				break;
 			case "4":
 				// Log Out
+				cs.logOut();
 				System.out.println("You Have Successfully Logged Out");
 				WelcomeController.welcomeScreen();
 				flag = false;
@@ -77,7 +80,7 @@ public class CustomerController {
 			System.out.println("Cart Submitted");
 			ss.submitCart();
 		} else if(input001.equals("2")) {
-			System.out.println("Enter the Number of the Item You Would Remove");
+			System.out.println("Enter the Number of the Item You Would Remove:");
 			int item = sc.nextInt();
 			sc.nextLine();
 			ss.removeFromCart(item);
@@ -88,7 +91,7 @@ public class CustomerController {
 	}
 	
 	public static void orderHistory() {
-		
+		ss.showHistory();
 	}
 	
 }

@@ -53,7 +53,7 @@ public class LoginController {
 			}
 		}
 		else {
-			userLogin(sc);
+			//userLogin(sc);
 		}
 	}
 }

@@ -41,7 +41,7 @@ public class CustomerService {
 		return cust;
 	}
 	
-	public void logout() {
+	public void logOut() {
 		List<Customer> customers = cd.getAll();
 		for (Customer cust : customers) {
 			if(cust.isLoggedIn() == true) {

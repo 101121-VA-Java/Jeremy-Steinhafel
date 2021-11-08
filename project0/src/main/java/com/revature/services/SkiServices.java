@@ -21,6 +21,7 @@ public class SkiServices {
 	private static Scanner sc = new Scanner(System.in);	
 	
 	public Skis addSkis(Skis s){
+		s.setCustomerID(0);
 		Skis compareSkis = this.getSkisByModel(s.getModel());
 		if(compareSkis != null ){ // && newSkis.getBrand().equals(s.getBrand())
 			int total = compareSkis.getInStock() + s.getInStock();
@@ -52,6 +53,7 @@ public class SkiServices {
 		s.setPrice(compareSkis.getPrice());
 		s.setOfferStatus(compareSkis.getOfferStatus());
 		compareSkis.setInStock(total);
+		sd.update(compareSkis);
 		if(total == 0) { 
 			sd.remove(s);
 			return null;
@@ -86,7 +88,16 @@ public class SkiServices {
 				moveToCart(choice);
 			}
 		} else if(choice > 0 && choice < skis.size()) {
-			Skis skiChoice = skis.get(choice - 1);
+			int counter = 0;
+			Skis skiChoice = new Skis();
+			for(Skis s: skis) {
+				if(s.getOfferStatus().equals("Available")){
+					counter += 1;
+					if(choice == counter) {
+						skiChoice = s;
+					}
+				}
+			}
 			System.out.println("Added (1) " + skiChoice.getBrand() + " " + skiChoice.getModel()
 					+ " to Your Cart");
 			int newInStock = skiChoice.getInStock() - 1;
@@ -101,6 +112,14 @@ public class SkiServices {
 			Skis cartSkis = new Skis(skiChoice.getBrand(), skiChoice.getModel(), skiChoice.getPrice(), 
 					 "Pending", 1, cartID);
 			sd.add(cartSkis);
+			System.out.println("Press 1 to Continue Shopping or Press 2 to Return to the Dashboard");
+			String input002 = sc.nextLine();
+			if(input002.equals("1")) {
+				CustomerController.shopInventory(sc);
+			} else {
+				CustomerController.customerDashboard(sc);
+			}
+			
 		}
 		
 	}
@@ -155,14 +174,38 @@ public class SkiServices {
 			if(s.getOfferStatus().equals("Pending") && s.getCustomerID() == customerLoggedIn.getCustomerID()){
 				counter += 1;
 				if(item == counter) {
+					Skis removedSkis = new Skis(s.getBrand(), s.getModel(), s.getPrice(), s.getOfferStatus(), s.getInStock(), s.getCustomerID());
 					s.setOfferStatus("Available");
 					s.setCustomerID(0);
-					sd.update(s);
-					System.out.println("Removed item " + s.getInStock() +  s.getBrand() + " " + s.getModel() + "for $" + s.getPrice()
-							+ "from cart.");
+					addSkis(s);
+					sd.remove(removedSkis);
+					System.out.println("Removed item " + s.getBrand() + " " + s.getModel() + " for $" + s.getPrice()
+							+ " from cart.");
 				}
 			}
 		}
+	}
+	
+	public void showHistory() {
+		List<Skis> skis = sd.getAll();
+		List<Customer> customers = cd.getAll();
+		Customer customerLoggedIn = new Customer();
+		for(Customer cust : customers) {
+			if(cust.isLoggedIn() == true) {
+				customerLoggedIn = cust;
+			}
+		}
+		int counter = 0;
+		for(Skis s: skis) {
+			if(s.getOfferStatus().equals("Owned") && s.getCustomerID() == customerLoggedIn.getCustomerID()){
+				counter += 1;
+				System.out.println(counter + ": " + s.getBrand() + " " + s.getModel() + " $"
+						+ s.getPrice() + " Purchased: " + s.getInStock());
+			}
+		}
+		System.out.println("Press Any Key to Return to the Dashboard:");
+		String input003 = sc.nextLine();
+		CustomerController.customerDashboard(sc);
 	}
 	
 	public void showOffers() {
@@ -172,7 +215,7 @@ public class SkiServices {
 			if(s.getOfferStatus().equals("Submitted")){
 				counter += 1;
 				System.out.println(counter + ": " + s.getBrand() + " " + s.getModel() + " Offer = $"
-						+ s.getPrice() + " In Cart: " + s.getInStock() + " Customer: " + s.getCustomerID());
+						+ s.getPrice() + " In Cart: " + s.getInStock() + " Customer ID: " + s.getCustomerID());
 			}
 		}
 	}
@@ -184,9 +227,9 @@ public class SkiServices {
 			if(s.getOfferStatus().equals("Submitted")){
 				counter += 1;
 				if(item == counter) {
+					System.out.println("Accepted offer on " + s.getInStock() + " " + s.getBrand() + " " + s.getModel() + " for $" + s.getPrice());
 					s.setOfferStatus("Owned");
 					sd.update(s);
-					System.out.println("Accepted offer on " + s.getInStock() +  s.getBrand() + " " + s.getModel() + "for $" + s.getPrice());
 				}
 			}
 		}
@@ -199,13 +242,29 @@ public class SkiServices {
 			if(s.getOfferStatus().equals("Submitted")){
 				counter += 1;
 				if(item == counter) {
+					Skis removedSkis = new Skis(s.getBrand(), s.getModel(), s.getPrice(), s.getOfferStatus(), s.getInStock(), s.getCustomerID());
 					s.setOfferStatus("Available");
 					s.setCustomerID(0);
-					sd.update(s);
-					System.out.println("Rejected offer on " + s.getInStock() +  s.getBrand() + " " + s.getModel() + "for $" + s.getPrice());
+					addSkis(s);
+					sd.remove(removedSkis);
+					System.out.println("Rejected offer on " + s.getBrand() + " " + s.getModel() + "for $" + s.getPrice());
 				}
 			}
 		}
+	}
+	
+	public void showPayments() {
+		List<Skis> skis = sd.getAll();
+		double total = 0;
+		int counter = 0;
+		for(Skis s: skis) {
+			if(s.getOfferStatus().equals("Owned")) {
+				counter += 1;
+				System.out.println(counter + s.getBrand() + " " + s.getModel() + " " + s.getInStock() +  " $" + s.getPrice());
+				total += s.getPrice();
+			}
+		}
+		System.out.println("Total Sales = " + total);
 	}
 	
 }
