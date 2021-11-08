@@ -95,7 +95,7 @@ public class SkiServices {
 					counter += 1;
 					if(choice == counter) {
 						skiChoice = s;
-					}
+					} 
 				}
 			}
 			System.out.println("Added (1) " + skiChoice.getBrand() + " " + skiChoice.getModel()
