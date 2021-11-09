@@ -79,6 +79,7 @@ public class CustomerController {
 		if(input001.equals("1")) {
 			System.out.println("Cart Submitted");
 			ss.submitCart();
+			customerDashboard(sc);
 		} else if(input001.equals("2")) {
 			System.out.println("Enter the Number of the Item You Would Remove:");
 			int item = sc.nextInt();

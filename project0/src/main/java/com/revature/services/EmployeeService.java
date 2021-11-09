@@ -36,6 +36,9 @@ public class EmployeeService {
 		if(emp == null || !emp.getPassword().equals(password)) {
 			throw new LoginException();
 		}
+		if(emp.getEmployeeID() == 987) {
+			
+		}
 		return emp;
 	}
 }

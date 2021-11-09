@@ -28,7 +28,7 @@ public class CustomerPostgres implements CustomerDao {
 				int c_id = rs.getInt("c_id");
 				String c_first_name = rs.getString("c_first_name");
 				String c_last_name = rs.getString("c_first_name");
-				String c_email = rs.getString("c_username");
+				String c_email = rs.getString("c_email");
 				String c_password = rs.getString("c_password");
 				Boolean loggedIn = rs.getBoolean("c_logged_in");
 

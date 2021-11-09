@@ -2,7 +2,7 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
-import com.revature.models.Skis;
+import com.revature.models.Ski;
 import com.revature.services.SkiServices;
 
 public class EmployeeController {
@@ -69,14 +69,12 @@ public class EmployeeController {
 		System.out.println("Input the price:");
 		double price = sc.nextDouble();
 		sc.nextLine();
-		System.out.println("Input the offer status:");
-		String offer = sc.nextLine();
 		System.out.println("Input the amount in inventory:");
 		int inStock = sc.nextInt();
 		sc.nextLine();
-		Skis s = new Skis(brand, model, price, offer, inStock);
+		Ski s = new Ski(brand, model, price, inStock);
 		s = ss.addSkis(s);
-		System.out.println("Successfully added " + s.getBrand() + " " + s.getModel() + " " + s.getPrice() + " " + s.getOfferStatus() + " " + s.getInStock());
+		System.out.println("Successfully added " + s.getBrand() + " " + s.getModel() + " " + s.getPrice() + " " + s.getInStock());
 		employeeDashboard(sc);
 	}
 	
@@ -86,11 +84,11 @@ public class EmployeeController {
 		System.out.println("Input the amount in inventory to remove:");
 		int inStock = sc.nextInt();
 		sc.nextLine();
-		Skis s = new Skis(model,inStock);
+		Ski s = new Ski(model,inStock);
 		s = ss.removeSkis(s);
 		System.out.println("Successfully Removed Item.");	
 		if(s != null) {
-			System.out.println("Product Remaining: " + s.getBrand() + " " + s.getModel() + " " + s.getPrice() + " " + s.getOfferStatus() + " " + s.getInStock());
+			System.out.println("Product Remaining: " + s.getBrand() + " " + s.getModel() + " " + s.getPrice() + " " + s.getInStock());
 		}
 		employeeDashboard(sc);
 	}

@@ -10,7 +10,7 @@ import com.revature.models.Customer;
 import com.revature.models.Employee;
 import com.revature.repositories.SkiPostgres;
 import com.revature.repositories.SkiDao;
-import com.revature.models.Skis;
+import com.revature.models.Ski;
 
 public class JdbcDriver {
 
@@ -37,17 +37,16 @@ public class JdbcDriver {
 		
 		SkiDao sd = new SkiPostgres();
 		
-		Skis newSkis = new Skis("Nordica", "Enforcer188", 900.00, "Available", 3);
+		Ski newSkis = new Ski("Nordica", "Enforcer188", 900.00, 3);
 		sd.remove(newSkis);
 		
-		List<Skis> skis = sd.getAll();
-		for(Skis s: skis) {
+		List<Ski> skis = sd.getAll();
+		for(Ski s: skis) {
+			System.out.println(s.getSkiID());
 			System.out.println(s.getBrand());
 			System.out.println(s.getModel());
 			System.out.println(s.getPrice());
-			System.out.println(s.getOfferStatus());
 			System.out.println(s.getInStock());
-			System.out.println(s.getCustomerID());
 		}
 	}
 
