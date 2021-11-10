@@ -1,7 +1,9 @@
 package com.revature.services;
 
 import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 import com.revature.repositories.CustomerDao;
@@ -53,7 +55,7 @@ public class SkiServices {
 
 	public Ski removeSkis(Ski s) {
 		Ski compareSkis = this.getSkisByModel(s.getModel());
-		int total = compareSkis.getInStock() - s.getInStock();
+		int total = compareSkis.getInStock() - 1;
 		s.setInStock(total);
 		s.setBrand(compareSkis.getBrand());
 		s.setPrice(compareSkis.getPrice());
@@ -68,7 +70,7 @@ public class SkiServices {
 	}
 
 	public void showInventory() {
-		List<Ski> skis = sd.getAll();
+		List<Ski> skis = sd.getInStock();
 		int counter = 0;
 		for (Ski s : skis) {
 			counter += 1;
@@ -88,20 +90,14 @@ public class SkiServices {
 			} else {
 				moveToCart(choice);
 			}
-		} else if (choice > 0 && choice < skis.size()) {
+		} else if (choice > 0 && choice <= skis.size()) {
 			Ski skiChoice = skis.get(choice - 1);
 			System.out.println("Added (1) " + skiChoice.getBrand() + " " + skiChoice.getModel() + " to Your Cart");
-			int newInStock = skiChoice.getInStock() - 1;
-			skiChoice.setInStock(newInStock);
+			removeSkis(skiChoice);
 			Customer customerLoggedIn = getLoggedInCustomer();
 			int customerID = customerLoggedIn.getCustomerID();
-			if (skiChoice.getInStock() == 0) {
-				sd.remove(skiChoice);
-			} else {
-				sd.update(skiChoice);
-			}
 			// get the order for this customer if it exists, otherwise create a new order
-			Order pendingOrder = od.getPending(customerID);
+			Order pendingOrder = od.getByStatus(customerID, "Pending");
 			if (pendingOrder == null) {
 				pendingOrder = new Order("Pending", customerID, LocalDate.now());
 				od.add(pendingOrder);
@@ -115,8 +111,8 @@ public class SkiServices {
 				}
 			}
 			if (pendingOrderItem == null) {
-				pendingOrderItem = new OrderItem(pendingOrder.getOrderID(), skiChoice.getSkiID(), 1);
-				od.add(pendingOrder);
+				pendingOrderItem = new OrderItem(pendingOrder.getOrderID(), skiChoice.getSkiID(), 1, "Pending");
+				oid.add(pendingOrderItem);
 			} else {
 				int newQuantity = pendingOrderItem.getOrderQuantity() + 1;
 				pendingOrderItem.setOrderQuantity(newQuantity);
@@ -134,88 +130,84 @@ public class SkiServices {
 	}
 
 	public void showCart() {
-		Customer customerLoggedIn = getLoggedInCustomer(); 
+		Customer customerLoggedIn = getLoggedInCustomer();
 		int customerID = customerLoggedIn.getCustomerID();
-		Order order = od.getPending(customerID);
-		if(order == null) {
+		Order order = od.getByStatus(customerID, "Pending");
+		if (order == null) {
 			System.out.println("There Are No Items in Your Cart.");
 			return;
 		}
 		List<OrderItem> orderItems = oid.getByOrderID(order.getOrderID());
-		if(orderItems.size() == 0) {
+		if (orderItems.size() == 0) {
 			System.out.println("There Are No Items in Your Cart.");
 			return;
 		}
 		int counter = 0;
-		for(OrderItem oi : orderItems) {
+		for (OrderItem oi : orderItems) {
 			counter += 1;
 			Ski s = sd.getByID(oi.getSkiID());
 			System.out.println(counter + ": " + s.getBrand() + " " + s.getModel() + " $" + s.getPrice() + " In Cart: "
-					+ s.getInStock());
+					+ oi.getOrderQuantity());
 		}
 	}
 
 	public void submitCart() {
-		List<Ski> skis = sd.getAll();
-		List<Customer> customers = cd.getAll();
-		Customer customerLoggedIn = new Customer();
-		for (Customer cust : customers) {
-			if (cust.isLoggedIn() == true) {
-				customerLoggedIn = cust;
-			}
+		Customer customerLoggedIn = getLoggedInCustomer();
+		int customerID = customerLoggedIn.getCustomerID();
+		Order order = od.getByStatus(customerID, "Pending");
+		if (order == null) {
+			System.out.println("There Are No Items in Your Cart.");
+			return;
 		}
-		for (Ski s : skis) {
-			if (s.getOfferStatus().equals("Pending") && s.getCustomerID() == customerLoggedIn.getCustomerID()) {
-				s.setOfferStatus("Submitted");
-				sd.update(s);
-			}
-		}
-		// CustomerController.customerDashboard(sc);
+		order.setOrderStatus("Submitted");
+		od.update(order);
 	}
 
 	public void removeFromCart(int item) {
-		List<Ski> skis = sd.getAll();
-		List<Customer> customers = cd.getAll();
-		Customer customerLoggedIn = new Customer();
-		for (Customer cust : customers) {
-			if (cust.isLoggedIn() == true) {
-				customerLoggedIn = cust;
-			}
-		}
+		// get customer that is logged in and get cart by customer ID
+		Customer customerLoggedIn = getLoggedInCustomer();
+		int customerID = customerLoggedIn.getCustomerID();
+		Order order = od.getByStatus(customerID, "Pending");
 		int counter = 0;
-		for (Ski s : skis) {
-			if (s.getOfferStatus().equals("Pending") && s.getCustomerID() == customerLoggedIn.getCustomerID()) {
-				counter += 1;
-				if (item == counter) {
-					Skis removedSkis = new Skis(s.getBrand(), s.getModel(), s.getPrice(), s.getOfferStatus(),
-							s.getInStock(), s.getCustomerID());
-					s.setOfferStatus("Available");
-					s.setCustomerID(0);
-					addSkis(s);
-					sd.remove(removedSkis);
-					System.out.println("Removed item " + s.getBrand() + " " + s.getModel() + " for $" + s.getPrice()
-							+ " from cart.");
-				}
+		// if nothing in the cart tell the user and return
+		if (order == null) {
+			System.out.println("There Are No Items in Your Cart.");
+			return;
+		}
+		// get order items according to order id
+		List<OrderItem> orderItems = oid.getByOrderID(order.getOrderID());
+		// remove item from order item then add back to skis
+		for (OrderItem oi : orderItems) {
+			counter += 1;
+			if (item == counter) {
+				OrderItem removedOrderItem = oi;
+				// get skis by id and add them back
+				Ski returnedSki = sd.getByID(removedOrderItem.getSkiID());
+				addSkis(returnedSki);
+				oid.remove(removedOrderItem);
+				System.out.println(
+						"Removed item " + returnedSki.getBrand() + " " + returnedSki.getModel() + " from cart.");
 			}
 		}
 	}
 
 	public void showHistory() {
-		List<Ski> skis = sd.getAll();
-		List<Customer> customers = cd.getAll();
-		Customer customerLoggedIn = new Customer();
-		for (Customer cust : customers) {
-			if (cust.isLoggedIn() == true) {
-				customerLoggedIn = cust;
-			}
+		Customer customerLoggedIn = getLoggedInCustomer();
+		int customerID = customerLoggedIn.getCustomerID();
+		Order order = od.getByStatus(customerID, "Owned");
+		// if nothing in history tell the user and return
+		if (order == null) {
+			System.out.println("You have not made any purchases yet");
+			return;
 		}
 		int counter = 0;
-		for (Ski s : skis) {
-			if (s.getOfferStatus().equals("Owned") && s.getCustomerID() == customerLoggedIn.getCustomerID()) {
-				counter += 1;
-				System.out.println(counter + ": " + s.getBrand() + " " + s.getModel() + " $" + s.getPrice()
-						+ " Purchased: " + s.getInStock());
-			}
+		List<OrderItem> orderItems = oid.getByOrderID(order.getOrderID());
+		for (OrderItem oi : orderItems) {
+			counter += 1;
+			Ski purchasedSki = sd.getByID(oi.getSkiID());
+			System.out.println(counter + ": " + purchasedSki.getBrand() + " " + purchasedSki.getModel() + " $"
+					+ purchasedSki.getPrice() + " Purchased: " + oi.getOrderQuantity());
+
 		}
 		System.out.println("Press Any Key to Return to the Dashboard:");
 		String input003 = sc.nextLine();
@@ -223,64 +215,104 @@ public class SkiServices {
 	}
 
 	public void showOffers() {
-		List<Ski> skis = sd.getAll();
+		List<Order> orders = od.getAll();
 		int counter = 0;
-		for (Ski s : skis) {
-			if (s.getOfferStatus().equals("Submitted")) {
-				counter += 1;
-				System.out.println(counter + ": " + s.getBrand() + " " + s.getModel() + " Offer = $" + s.getPrice()
-						+ " In Cart: " + s.getInStock() + " Customer ID: " + s.getCustomerID());
+		for (Order o : orders) {
+			if (o.getOrderStatus().equals("Submitted")) {
+				List<OrderItem> orderItems = oid.getByOrderID(o.getOrderID());
+				for (OrderItem oi : orderItems) {
+					counter += 1;
+					Ski s = sd.getByID(oi.getSkiID());
+					System.out.println(counter + ": " + s.getBrand() + " " + s.getModel() + " Offer = $" + s.getPrice()
+							+ " In Cart: " + oi.getOrderQuantity() + " Customer ID: " + o.getCustomerID());
+				}
 			}
 		}
 	}
 
 	public void acceptOffer(int item) {
-		List<Ski> skis = sd.getAll();
+		List<Order> orders = od.getAll();
 		int counter = 0;
-		for (Ski s : skis) {
-			if (s.getOfferStatus().equals("Submitted")) {
-				counter += 1;
-				if (item == counter) {
-					System.out.println("Accepted offer on " + s.getInStock() + " " + s.getBrand() + " " + s.getModel()
-							+ " for $" + s.getPrice());
-					s.setOfferStatus("Owned");
-					s.setPurchaseDate(LocalDate.now());
-					sd.update(s);
+		for (Order o : orders) {
+			if (o.getOrderStatus().equals("Submitted")) {
+				List<OrderItem> orderItems = oid.getByOrderID(o.getOrderID());
+				for (OrderItem oi : orderItems) {
+					counter += 1;
+					if (item == counter) {
+						Ski s = sd.getByID(oi.getSkiID());
+						oi.setOrderItemStatus("Accepted");
+						oid.update(oi);
+						System.out.println("Accepted offer on " + oi.getOrderQuantity() + " " + s.getBrand() + " "
+								+ s.getModel() + " for $" + s.getPrice());
+						break;
+					}
+				}
+				// if all order items are accepted, update order status to owned
+				boolean allAccepted = true;
+				for (OrderItem oi : orderItems) {
+					if (!oi.getOrderItemStatus().equals("Accepted")) {
+						allAccepted = false;
+						break;
+					}
+				}
+				if (allAccepted) {
+					o.setOrderStatus("Owned");
+					o.setPurchaseDate(LocalDate.now());
+					od.update(o);
 				}
 			}
 		}
 	}
 
 	public void rejectOffer(int item) {
-		List<Ski> skis = sd.getByStatus("Submitted");
+		List<Order> orders = od.getAll();
 		int counter = 0;
-		for (Ski s : skis) {
-			counter += 1;
-			if (item == counter) {
-				// Skis removedSkis = new Skis(s.getBrand(), s.getModel(), s.getPrice(),
-				// s.getOfferStatus(), s.getInStock(), s.getCustomerID());
-				Skis newSkiTotal = addSkis(s);
-				sd.update(newSkiTotal);
-				System.out.println("Rejected offer on " + s.getBrand() + " " + s.getModel() + "for $" + s.getPrice());
+		for (Order o : orders) {
+			if (o.getOrderStatus().equals("Submitted")) {
+				List<OrderItem> orderItems = oid.getByOrderID(o.getOrderID());
+				for (OrderItem oi : orderItems) {
+					counter += 1;
+					Ski s = sd.getByID(oi.getSkiID());
+					if (item == counter) {
+						oi.setOrderItemStatus("Rejected");
+						addSkis(s);
+						oid.remove(oi);
+						System.out.println(
+								"Rejected offer on " + s.getBrand() + " " + s.getModel() + "for $" + s.getPrice());
+					}
+
+				}
+
 			}
+
 		}
 	}
 
 	public void showPayments() {
-		List<Ski> skis = sd.getByStatus("Owned");
+		List<Order> orders = od.getAll();
 		double total = 0;
 		double weeklyTotal = 0;
 		LocalDate today = LocalDate.now();
-		LocalDate week;
+		WeekFields weekFields = WeekFields.of(Locale.getDefault()); 
+		int weekNumber = today.get(weekFields.weekOfWeekBasedYear());
 		int counter = 0;
-		for (Ski s : skis) {
-			counter += 1;
-			System.out
-					.println(counter + s.getBrand() + " " + s.getModel() + " " + s.getInStock() + " $" + s.getPrice());
-			total += s.getPrice();
-
+		for (Order o : orders) {
+			if(o.getOrderStatus().equals("Owned")) {
+				boolean isCurrentWeek = today.getYear() == o.getPurchaseDate().getYear() && weekNumber == o.getPurchaseDate().get(weekFields.weekOfWeekBasedYear());
+				List<OrderItem> orderItems = oid.getByOrderID(o.getOrderID());
+				for (OrderItem oi : orderItems) { 
+					Ski s = sd.getByID(oi.getSkiID());
+					counter += 1;
+					System.out.println(counter + " " + s.getBrand() + " " + s.getModel() + " " + oi.getOrderQuantity() + " $" + s.getPrice());
+					total += s.getPrice();
+					if(isCurrentWeek) {
+						weeklyTotal += s.getPrice();
+					}
+				}
+			}
 		}
-		System.out.println("Total Sales = " + total);
+		System.out.println("Total Sales = $" + total);
+		System.out.println("Sales From This Week = $" + weeklyTotal);
 	}
 
 	private Customer getLoggedInCustomer() {

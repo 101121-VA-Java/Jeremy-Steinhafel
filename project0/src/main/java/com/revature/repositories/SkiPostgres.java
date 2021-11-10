@@ -101,9 +101,8 @@ public class SkiPostgres implements SkiDao {
 			ps.setDouble(3, skis.getPrice());
 			ps.setInt(4, skis.getInStock());
 
-
-			ResultSet rs = ps.executeQuery();
-			ps.executeUpdate();
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
 
 			if(rs.next()) {
 				skis.setSkiID(rs.getInt(1));

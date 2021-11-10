@@ -22,7 +22,7 @@ public class OrderPostgres implements OrderDao {
 			int orderID = rs.getInt("o_id");
 			String orderStatus = rs.getString("o_status");
 			int customerID = rs.getInt("o_customer_id");
-			LocalDate purchaseDate = (LocalDate) rs.getObject("o_purchase_date");
+			LocalDate purchaseDate = (LocalDate) rs.getObject("o_purchase_date", LocalDate.class);
 			
 			return new Order(orderID, orderStatus, customerID, purchaseDate);
 			
@@ -81,9 +81,9 @@ public class OrderPostgres implements OrderDao {
 			ps.setInt(2, order.getCustomerID());
 			ps.setObject(3, order.getPurchaseDate());
 
-
-			ResultSet rs = ps.executeQuery();
-			ps.executeUpdate();
+			ps.execute();
+			ResultSet rs = ps.getResultSet();
+			
 
 			if(rs.next()) {
 				order.setOrderID(rs.getInt(1));
@@ -139,13 +139,13 @@ public class OrderPostgres implements OrderDao {
 	}
 
 	@Override
-	public Order getPending(int customerID) {
+	public Order getByStatus(int customerID, String status) {
 		String sql = "select * from orders where o_status = ? and o_customer_id = ?;";
 		Order o = null;
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, "Pending");
+			ps.setString(1, status);
 			ps.setInt(2, customerID);
 			ResultSet rs = ps.executeQuery();
 

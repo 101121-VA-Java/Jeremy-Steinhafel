@@ -6,7 +6,9 @@ public class OrderItem {
 	private int orderID;
 	private int skiID;
 	private int orderQuantity;
+	private String orderItemStatus;
 
+	
 	public OrderItem() {
 		super();
 	}
@@ -19,11 +21,29 @@ public class OrderItem {
 		this.orderQuantity = orderQuantity;
 	}
 
-	public OrderItem(int orderID, int skiID, int orderQuantity) {
+	public OrderItem(int orderID, int skiID, int orderQuantity, String orderItemStatus) {
 		super();
 		this.orderID = orderID;
 		this.skiID = skiID;
 		this.orderQuantity = orderQuantity;
+		this.orderItemStatus = orderItemStatus;
+	}
+	
+	public OrderItem(int orderItemID, int orderID, int skiID, int orderQuantity, String orderItemStatus) {
+		super();
+		this.orderItemID = orderItemID;
+		this.orderID = orderID;
+		this.skiID = skiID;
+		this.orderQuantity = orderQuantity;
+		this.orderItemStatus = orderItemStatus;
+	}
+
+	public String getOrderItemStatus() {
+		return orderItemStatus;
+	}
+
+	public void setOrderItemStatus(String orderItemStatus) {
+		this.orderItemStatus = orderItemStatus;
 	}
 
 	public int getOrderItemID() {

@@ -22,6 +22,7 @@ public class OrderItemPostgres implements OrderItemDao{
 			int orderID= rs.getInt("oi_order_id");
 			int skiID = rs.getInt("oi_ski_id");
 			int orderQuantity = rs.getInt("oi_quantity");
+			String orderItemStatus = rs.getString("oi_status");
 			
 			return new OrderItem(orderItemID, orderID, skiID, orderQuantity);
 			
@@ -89,8 +90,8 @@ public class OrderItemPostgres implements OrderItemDao{
 
 	@Override
 	public OrderItem add(OrderItem orderItem) {
-		String sql = "insert into orders (oi_order_id, oi_ski_id, oi_quantity) "
-				+ "values (?, ?, ?) returning oi_id;";
+		String sql = "insert into order_items (oi_order_id, oi_ski_id, oi_quantity, oi_status) "
+				+ "values (?, ?, ?, ?) returning oi_id;";
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -98,9 +99,10 @@ public class OrderItemPostgres implements OrderItemDao{
 			ps.setInt(1, orderItem.getOrderID());
 			ps.setInt(2, orderItem.getSkiID());
 			ps.setInt(3, orderItem.getOrderQuantity());
+			ps.setString(4, orderItem.getOrderItemStatus());
 
-			ResultSet rs = ps.executeQuery();
-			ps.executeUpdate();
+			ps.execute();
+			ResultSet rs = ps.getResultSet();;
 
 			if(rs.next()) {
 				orderItem.setOrderItemID(rs.getInt(1));
@@ -112,7 +114,7 @@ public class OrderItemPostgres implements OrderItemDao{
 	}
 
 	public boolean update(OrderItem orderItem) {
-		String sql = "update order_items set oi_order_id = ?, oi_ski_id = ?, oi_quantity = ? "
+		String sql = "update order_items set oi_order_id = ?, oi_ski_id = ?, oi_quantity = ?, oi_status = ? "
 				+ "where oi_id = ?;";
 
 		int rowsChanged = -1;
@@ -123,7 +125,8 @@ public class OrderItemPostgres implements OrderItemDao{
 			ps.setInt(1, orderItem.getOrderID());
 			ps.setInt(2, orderItem.getSkiID());
 			ps.setInt(3, orderItem.getOrderQuantity());
-			ps.setInt(4, orderItem.getOrderItemID());
+			ps.setString(4, orderItem.getOrderItemStatus());
+			ps.setInt(5, orderItem.getOrderItemID());
 
 			rowsChanged = ps.executeUpdate();
 		} catch (SQLException | IOException e) {

@@ -46,6 +46,7 @@ public class CustomerService {
 		for (Customer cust : customers) {
 			if(cust.isLoggedIn() == true) {
 				cust.setLoggedIn(false);
+				cd.update(cust);
 			}
 		}
 	}
