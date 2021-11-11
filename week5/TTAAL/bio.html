@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <meta content="maximum-scale=1.0, initial-scale=1.0, width=device-width" name="viewport">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <!--LINK JQUERY-->
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid" id="bgroundopacity">
+        <div class="row flex-xl-nowrap">
+            <div class="col-12 col-md-4 col-lg-3 col-xl-2 sticky-top d-flex align-items-center justify-content-center vh-md-100"
+                id="navigation-sidebar">
+                <nav class="navbar-dark navbar-expand-md flex-column flex-nowrap text-white py-2">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#leftNavbar"
+                        aria-controls="leftNavbar" aria-expanded="false" aria-label="Toggle left navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse" id="leftNavbar">
+                        <ul class="list-unstyled w-100 mb-0">
+                            <li>
+                                <div class="gray-hex nav-hover"><a href="#TTAAL" class="nav-link"
+                                        id="designs_img">TTAAL</a></div>
+                            </li>
+                            <li>
+                                <div class="gray-hex nav-hover"><a href="#about" class="nav-link"
+                                        id="about_img">About</a></div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <main role="main" class="col-12 col-md-8 col-lg-9 col-xl-10">
+                <section class="pack min-vh-100 d-flex align-items-center mx-auto" id="TTAAL">
+                    <div>
+                        <h1 class="text-center">Hello and Welcome to my Website</h1>
+                        <h4 class="text-center">Below are 2 truths and 1 lie about me... click the images to find out which is a lie.</h4>
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="d-inline" style="margin-top: 50px;">I Live in the Mountains at 10,000 Feet.</h3>
+                                <img src="images/coolmtns.jpg" onclick="on1()" width="400px"
+                                    class="project_img img-fluid d-inline"  style="margin-top: 100px; margin-left: 50px;">
+                            </div>
+                            <div class="col-12">
+                                <h3 class="d-inline" style="margin-top: 30px;">I was born in Germany.</h3>
+                                <img src="images/germany.jpg" onclick="on2()" width="400px"
+                                    class="project_img img-fluid d-inline" style="margin-top: 100px; margin-left: 260px;">
+                            </div>
+                            <div class="col-12">
+                                <h3 class="d-inline" style="margin-top: 30px;">I am allergic to candy, but still eat it!</h3>
+                                <img src="images/candy.jpg" onclick="on3()" width="400px" class="project_img img-fluid d-inline" style="margin-top: 100px; margin-left: 110px;">
+                            </div>
+                        </div>
+                        <div class="overlay justify-content-center align-items-center" id="overlay1" onclick="off1()">
+                                <div class="w-75 overflow-auto h-75">
+                                   <h3 class="text-center">TRUE!</h3>
+                                   <p class="text-center">I live in Breckenridge, Colorado. My home is at an elevation just under 10,000 feet above sea level. </p>
+
+                                </div>
+                        </div>
+                        <div class="overlay justify-content-center align-items-center" id="overlay2" onclick="off2()">
+                            <div class="w-75 overflow-auto h-75">
+                                <h3 class="text-center">FALSE!</h3>
+                                <p class="text-center">I was born in Milwaukee, Wisconsin, but learned to speak German at a young age. </p>
+                            </div>
+                        </div>
+                        <div class="overlay justify-content-center align-items-center" id="overlay3" onclick="off3()">
+                            <div class="w-75 overflow-auto h-75">
+                                <h3 class="text-center">TRUE!</h3>
+                                <p class="text-center">I am allergic to sour and gummy candy and anything with food coloring. My favorite candy is Mike N Ikes. </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="about min-vh-100 d-flex align-items-center justify-content-center" id="about">
+                    <div>
+                        <h1 class="heading">About</h1>
+                        <div class="row">
+                            <div class="col">
+                                <p>Hello and Welcome to my web page! My name is Jeremy Steinhafel.  
+                                I was born and raised in Milwaukee, Wisconsin. I graduated from the University of Southern California.
+                                Following college, I worked as an engineer to make manufactured products more sustainabile. After that I became a ski pro for two years in Breckenridge, CO, where I currently live. 
+                                I am an avid outdoorsman and environmental enthusiast, who also enjoys sitting inside on his computer.</p>
+                            </div>
+                            <div class="col">
+                                <img src="images/linkedinphoto.jpg" width="321" height="300">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        </div>
+    </div>
+    </div>
+    <footer class="d-flex align-items-center justify-content-center" id="bgroundopacity">
+        <p>&copy; 2021 Jeremy Steinhafel</p>
+    </footer>
+</body>
+
+</html>

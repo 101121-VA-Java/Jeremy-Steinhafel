@@ -1,0 +1,193 @@
+body {
+    background-image: url(../images/portfoliowebsitebackground.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    color: white;
+    background-size: cover;
+  }
+
+ html {
+  scroll-behavior: smooth;
+}
+
+h1{
+  font-family: 'Orbitron', sans-serif;
+}
+
+h3{
+  font-family: 'Orbitron', sans-serif;
+}
+
+#navigation-sidebar {
+  font-family: 'Orbitron', sans-serif;
+}
+
+@media (min-width: 768px){
+  .vh-md-100{
+      height:100vh;
+  }
+}
+
+@media (max-width: 768px){
+  #navigation-sidebar{
+      justify-content: center;
+      padding-bottom: 20px;
+    }
+  h1{
+    text-align: center;
+  }
+  .heading{
+    padding-top: 50px;
+  }
+  a{
+    padding-bottom: 50px;
+  }
+  main{
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+#bgroundopacity{
+  background: rgba(0, 0, 0, .7);
+}
+
+.nav-hover{
+  
+  transition: all 0.3s ease-in-out;
+  font-size: 15px;
+}
+
+.nav-link{
+  color: white;
+}
+
+
+
+.static_img{
+  position: absolute;
+  margin-right: 30%;
+}
+
+
+/* --Gray Sidebar Hexagon-- */
+
+.gray-hex:before{
+  content: "";
+  width: 0;
+  position:absolute;
+  bottom: 0px;
+  float: right;
+  border-right: 30px solid #444444;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  margin-left: -30px;
+  transition: all 0.3s ease-in-out;
+}
+
+.gray-hex{
+  margin-left: 30px;
+  margin-top: 30px;
+  margin-right: 30px;
+  width: 100px;
+  height: 30px;
+  background-color: #444444;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.gray-hex:after {
+  content: "";
+  width: 0;
+  position: absolute;
+  bottom: 0px;
+  float: left;
+  border-left: 30px solid #444444;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  margin-left: 100px;
+  transition: all 0.3s ease-in-out;
+} 
+
+@media (hover:hover) and (pointer: fine){
+  
+  .nav-link:hover{
+    color: white;
+  }
+
+  .nav-hover:hover{
+    font-size: 1.5rem; 
+    font-weight: 400;
+    
+  }
+
+  .gray-hex:hover:before{
+    content: "";
+    width: 0;
+    position:absolute;
+    bottom: 0px;
+    float: right;
+    border-right: 60px solid #444444;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    margin-left: -60px;
+  }
+
+  .gray-hex:hover{
+    margin-left: 30px;
+    margin-top: 30px;
+    width: 150px;
+    height: 60px;
+    background-color: #444444;
+    position: relative;
+  }
+
+  .gray-hex:hover:after {
+  content: "";
+  width: 0;
+  position: absolute;
+  bottom: 0px;
+  float: left;
+  border-left: 60px solid #444444;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  margin-left: 150px;
+  } 
+
+  .project_img:hover{
+    transform: scale(1.25);
+  }
+}
+
+
+/* Designs Overlay */
+.overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.9); /* Black background with opacity */
+  z-index: 1021; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.project_img{
+  display: block;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.project_img:hover{
+  transform: scale(1.15);
+}
+
+
+
+
+
