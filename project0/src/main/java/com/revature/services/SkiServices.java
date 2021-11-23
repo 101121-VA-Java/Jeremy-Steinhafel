@@ -198,6 +198,7 @@ public class SkiServices {
 		// if nothing in history tell the user and return
 		if (order == null) {
 			System.out.println("You have not made any purchases yet");
+			CustomerController.customerDashboard(sc);
 			return;
 		}
 		int counter = 0;

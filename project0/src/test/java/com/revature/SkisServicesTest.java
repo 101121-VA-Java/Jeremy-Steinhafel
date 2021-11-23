@@ -11,6 +11,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.revature.models.Customer;
 import com.revature.models.Ski;
@@ -18,9 +19,13 @@ import com.revature.repositories.SkiDao;
 import com.revature.repositories.SkiPostgres;
 import com.revature.services.SkiServices;
 
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 
-@TestMethodOrder(OrderAnnotation.class)
+@ExtendWith(MockitoExtension.class)
 public class SkisServicesTest {
 
 	
