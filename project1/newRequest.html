@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<head></head>
+<body>
+  <!-- Amount, Type, Description -->
+  <a href="index.html">GO BACK TO HOME</a>
+  <br />
+  <br />
+  <br />
+  <form>
+    <div class="container">
+      <label><b>Amount For Reimbursement:</b></label>
+      <input type="number" id="amount" />
+
+      <br />
+      <br />
+
+      <label>Choose a Reimbursement Type</label>
+      <select id="reimbursementType">
+        <option value="1">Lodging</option>
+        <option value="2">Travel</option>
+        <option value="3">Food</option>
+        <option value="4">Other</option>
+      </select>
+
+      <br />
+      <br />
+
+      <label><b>Description</b></label>
+      <textarea id="description" cols="30" rows="10"></textarea>
+    </div>
+    <div id="error-div"></div>
+  </form>
+  <br />
+  <br />
+  <button onclick="submitReimbursement()">Submit Request</button>
+  <script src="newRequest.js"></script>
+</body>

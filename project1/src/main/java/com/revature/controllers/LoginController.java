@@ -19,12 +19,14 @@ public class LoginController {
 
 	public static void login(Context ctx){
 		
-		String username = ctx.queryParam("username");
-		String password = ctx.queryParam("password");
+		String username = ctx.formParam("username");
+		String password = ctx.formParam("password");
 		
-		User u = ls.loginCheck(username, password);
-		if(u != null) {
-			ctx.json(u);
+		String token = null;
+		
+		token = ls.loginCheck(username, password);
+		if(token != null) {
+			ctx.header("Authorization", token);
 			ctx.status(HttpCode.OK);
 		} else {
 			ctx.status(HttpCode.NOT_FOUND);

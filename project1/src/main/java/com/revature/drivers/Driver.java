@@ -1,14 +1,16 @@
 package com.revature.drivers;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.revature.controllers.LoginController;
-
 import static io.javalin.apibuilder.ApiBuilder.get;
 import static io.javalin.apibuilder.ApiBuilder.path;
 import static io.javalin.apibuilder.ApiBuilder.post;
 import static io.javalin.apibuilder.ApiBuilder.put;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.revature.controllers.LoginController;
+import com.revature.controllers.ReimbursementController;
+import com.revature.controllers.UserController;
 
 import io.javalin.Javalin;
 
@@ -31,14 +33,38 @@ public class Driver {
 		});
 		app.start();
 		
-//		app.before(ctx -> {
-//		    ctx.header("Access-Control-Allow-Headers", "Authorization");
-//		    ctx.header("Access-Control-Expose-Headers", "Authorization");
-//		});
+		app.before(ctx -> {
+		    ctx.header("Access-Control-Allow-Headers", "Authorization");
+		    ctx.header("Access-Control-Expose-Headers", "Authorization");
+		});
 		app.routes(() -> {
 			// login
 			path("login", () ->{
 				post(LoginController::login);
+			});
+			
+			//requests path
+			path("reimbursementRequests", () ->{
+				// submitRequest
+				path("submitRequest", () ->{
+					post(ReimbursementController::submitRequest);
+				});
+				path("viewPending", () ->{
+					get(ReimbursementController::viewPending);
+				});
+				path("viewResolved", () ->{
+					get(ReimbursementController::viewResolved);
+				});
+			});
+			
+			//employees
+			path("employee", () ->{
+				get(UserController::getAllEmployees);
+				// individual employee info
+				path("{id}", () ->{
+					get(UserController::getEmployeeByID);
+					put(UserController::updateUserInfo);
+				});
 			});
 		});
 		

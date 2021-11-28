@@ -15,6 +15,10 @@ public class Reimbursement {
 	private int statusID;
 	private int typeID;
 	
+	public Reimbursement(){
+		super();
+	}
+	
 	public Reimbursement(int reimbursementID, double amount, Timestamp submitted, Timestamp resolved,
 			String description, int author, int resolver, int statusID, int typeID) {
 		super();

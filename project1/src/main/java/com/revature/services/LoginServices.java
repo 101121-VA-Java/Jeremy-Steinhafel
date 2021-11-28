@@ -10,11 +10,13 @@ public class LoginServices {
 	
 	UserDao ud = new UserPostgres();
 	
-	public User loginCheck(String username, String password){
+	public String loginCheck(String username, String password){
+		String token = null;
 		List<User> users = ud.getAll();
 		for(User u : users) {
-			if(u.getUsername().equals(username)) {
-				return u;
+			if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
+				token = u.getUserID() + ":" + u.getRoleID();
+				return token;
 			}
 		}
 		return null;

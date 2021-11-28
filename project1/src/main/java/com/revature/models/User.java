@@ -1,6 +1,8 @@
 package com.revature.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
 	private int userID;
 	private String username;
@@ -11,6 +13,10 @@ public class User {
 	// do we need / does it update both tables in the DB??
 	private int roleID;
 	
+	public User() {
+		super();
+	}
+
 	public User(int userID, String username, String password, String firstName, String lastName, String email,
 			int roleID) {
 		super();

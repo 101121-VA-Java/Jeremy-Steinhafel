@@ -11,6 +11,7 @@ import java.util.List;
 import java.sql.Timestamp;
 
 import com.revature.models.Reimbursement;
+import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 
 public class ReimbursementPostgres implements ReimbursementDao {
@@ -26,8 +27,8 @@ public class ReimbursementPostgres implements ReimbursementDao {
 			// bytea
 			int author = rs.getInt("reimb_author");
 			int resolver = rs.getInt("reimb_resolver");
-			int statusID = rs.getInt("status_id");
-			int typeID = rs.getInt("type_id");
+			int statusID = rs.getInt("reimb_status_id");
+			int typeID = rs.getInt("reimb_type_id");
 			
 			return new Reimbursement(reimbID, amount, submitted, resolved, description, author, resolver, statusID, typeID );
 			
@@ -65,18 +66,18 @@ public class ReimbursementPostgres implements ReimbursementDao {
 	}
 
 	@Override
-	public Reimbursement getByID(int id) {
-		String sql = "select * from ers_reimbursement where reimb_id = ?;";
-		Reimbursement r = null;
+	public List<Reimbursement> getByAuthorID(int id) {
+		String sql = "select * from ers_reimbursement where reimb_author = ?;";
+		List<Reimbursement> r = new ArrayList<>();
 		
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
-			if(rs.next()) {
-				return makeNewReimbursement(rs);
-							}
+			while(rs.next()) {
+				r.add(makeNewReimbursement(rs));
+			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
@@ -149,6 +150,25 @@ public class ReimbursementPostgres implements ReimbursementDao {
 			return r;
 		}
 	}
-
-
+	
+	// needs to be changed to work
+	@Override
+	public Reimbursement getByID(int id) {
+		String sql = "select * from ers_users where ers_user_id = ?;";
+		Reimbursement r = null;
+		
+		try(Connection con = ConnectionUtil.getConnectionFromFile()){
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				return makeNewReimbursement(rs);
+							}
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+		return r;
+	}
+	
 }
