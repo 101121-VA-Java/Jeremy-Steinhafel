@@ -4,7 +4,13 @@ if (token) {
     let tokenArr = token.split(':');
     let id = tokenArr[0];
     let role = tokenArr[1];
- 
+    
+    if(role == 2){
+        document.getElementById("manager-home-display").style.display = "block";
+    } else{
+        document.getElementById("manager-home-display").style.display = "none ";
+    }
+
     console.log(tokenArr);
  } else {
     window.location.href= "login.html";

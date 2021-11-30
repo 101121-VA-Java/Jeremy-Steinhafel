@@ -19,5 +19,10 @@ public class UserServices {
 
 		return ud.update(u);
 	}
+	
+	public List<User> getAllUsers(){
+		List<User> allUsers = ud.getAll();
+		return allUsers;
+	}
 
 }

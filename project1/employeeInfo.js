@@ -116,6 +116,6 @@ async function submitEmployeeUpdate() {
     window.location.reload();
   } else {
     document.getElementById("error-div").innerHTML =
-      "Unable to update employee.";
+      "Unable to update your information.";
   }
 }

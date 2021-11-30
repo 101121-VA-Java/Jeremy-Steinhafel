@@ -50,5 +50,7 @@ function submitReimbursement(){
     let requestBody = `amount=${amount}&reimbursementType=${reimbursementType}&description=${description}`;
 
     xhr.send(requestBody);
+
+    window.location.reload();
   
 }

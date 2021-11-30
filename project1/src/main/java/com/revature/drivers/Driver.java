@@ -59,11 +59,34 @@ public class Driver {
 			
 			//employees
 			path("employee", () ->{
-				get(UserController::getAllEmployees);
 				// individual employee info
 				path("{id}", () ->{
 					get(UserController::getEmployeeByID);
 					put(UserController::updateUserInfo);
+				});
+			});
+			path("manager", () ->{
+				// view all pending reimbursement requests
+				path("viewAllPending", () ->{
+					get(ReimbursementController::viewAllPending);
+					path("Approve", () ->{
+						put(ReimbursementController::approveRequests);
+					});
+					path("Deny", () ->{
+						put(ReimbursementController::denyRequests);
+					});
+				});
+				// view all resolved reimbursement requests
+				path("viewHistory", () ->{
+					get(ReimbursementController::viewHistory);
+				});
+				path("employees", () ->{
+					get(UserController::getAllUsers);
+					// get all reimbursement requests by user
+					path("{id}", () ->{
+						get(ReimbursementController::viewAllRequestsByUser);
+					});
+					
 				});
 			});
 		});

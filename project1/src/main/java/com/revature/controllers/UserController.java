@@ -14,8 +14,6 @@ public class UserController {
 
 	public static UserServices us = new UserServices();
 	
-	public static void getAllEmployees(Context ctx) {}
-	
 	public static void getEmployeeByID(Context ctx) {
 		String token = ctx.header("Authorization");
 		int id = Integer.parseInt(ctx.pathParam("id"));
@@ -61,4 +59,14 @@ public class UserController {
 		}
 	}
 
+	public static void getAllUsers(Context ctx) {
+		List<User> allUsers = us.getAllUsers();
+		if (allUsers != null) {
+			ctx.json(allUsers);
+			ctx.status(HttpCode.OK);
+		} else {
+			ctx.status(HttpCode.NOT_FOUND);
+		}
+	}
+	
 }

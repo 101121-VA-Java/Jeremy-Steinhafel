@@ -28,12 +28,24 @@ function login(){
              */
             sessionStorage.setItem("token", authToken);
 
+
+            console.log(authToken);
             // navigate to a different view (ie: homepage)
-            window.location.href="../index.html";
+            //window.location.href="../index.html";
+
+            let tokenArr = authToken.split(':');
+            let role = tokenArr[1];
+            
+            if(role == 1){
+               window.location.href="../index.html"; 
+            }
+            if(role == 2){
+                window.location.href="managerHome.html";
+            }
 
         } else if (xhr.readyState === 4){
             // provide user with feedback of failure to login
-            document.getElementById("error-div").innerHTML = "Unable to login.";
+            document.getElementById("error-div").innerHTML = "Invalid Username Or Password!";
         }
     } 
 
@@ -43,5 +55,8 @@ function login(){
     let requestBody = `username=${username}&password=${password}`;
 
     xhr.send(requestBody);
+
+    
+
 
 }
