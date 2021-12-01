@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <link rel="stylesheet" href="../CSS/index.css" />
+</head>
+<body>
+  <!-- <button onclick="logout()">Logout</button>
+  <a href="index.html">Employee Home Page</a>
+  <br />
+  <h1>This is the Manager Home Page!</h1>
+  <button onclick="pendingManagerRequests()">
+    View Pending Reimbursement Requests From Employees
+  </button>
+  <button onclick="requestHistory()">View Reimbursement Request History</button>
+  <br />
+  <br />
+  <button onclick="viewAllEmployees()">View All Employees</button>
+   -->
+  <div class="container">
+    <div class="menu" id="manager-menu">
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button menu-header">
+            <i data-feather="clipboard"></i>Manager Menu
+          </button>
+        </li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button menu-button--black" onclick="pendingManagerRequests()">
+            <i data-feather="edit-2"></i>View All Pending Reimbursement Requests From Users
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-button" onclick="requestHistory()">
+            <i data-feather="link"></i>View All Reimbursement Request History
+          </button>
+        </li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button" onclick="viewAllEmployees()">
+            <i data-feather="archive"></i>View All Users
+          </button>
+        </li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button menu-button--delete" onclick="logout();">
+            <i data-feather="trash-2"></i>Log Out
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="menu" id="employee-menu">
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button menu-header">
+            <i data-feather="clipboard"></i>Employee Menu
+          </button>
+        </li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button menu-button--black" onclick="newRequest()">
+            <i data-feather="edit-2"></i>Submit A Reimbursement Request
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-button" onclick="viewPending()">
+            <i data-feather="link"></i>View Pending Reimbursements
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-button" onclick="viewResolved()">
+            <i data-feather="archive"></i>View Resolved Reimbursements
+          </button>
+        </li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button" onclick="employeeInfo()">
+            <i data-feather="save"></i>View Your Employee Information
+          </button>
+        </li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button menu-button--delete" onclick="logout();">
+            <i data-feather="trash-2"></i>Log Out
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script src="../JS/managerHome.js"></script>
+</body>

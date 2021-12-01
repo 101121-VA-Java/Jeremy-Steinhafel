@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <head></head>
 <body>
-  <a href="managerHome.html">GO BACK TO MANAGER HOME</a>
+  <a href="index.html">GO BACK TO HOME</a>
   <br />
   <br />
   <br />
-  <h1>Below are all Pending Reimbursement Requests</h1>
+  <h1>Below are your pending requests!</h1>
 
   <br />
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col">Select</th>
-        <th scope="col">Reimbursement ID</th>
-        <th scope="col">Author</th>
         <th scope="col">Amount</th>
         <th scope="col">Time Submitted</th>
         <th scope="col">Description</th>
@@ -23,8 +20,6 @@
     </thead>
     <tbody id="pending-tbody"></tbody>
   </table>
-  <div id="accept-or-reject"></div>
-  <div id="error-div"></div>
 
-  <script src="pendingManagerRequests.js"></script>
+  <script src="../JS/viewPending.js"></script>
 </body>

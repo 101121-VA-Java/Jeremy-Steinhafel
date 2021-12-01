@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <link rel="stylesheet" href="../CSS/index.css" />
+</head>
+<body>
+  <!-- <a href="managerHome.html" id="manager-home-display">Manager Home</a>
+  <button onclick="logout()">Logout</button>
+  <br />
+  You have Successfully Logged In! This is the Home Screen!
+  <br />
+  <button onclick="newRequest()">Submit A Reimbursement Request</button>
+  <button onclick="viewPending()">View Pending Reimbursements</button>
+  <button onclick="viewResolved()">View Resolved Reimbursements</button>
+  <br />
+  <br />
+  <button onclick="employeeInfo()">View Your Employee Information</button> -->
+  <div class="container">
+    <div class="menu" id="menu" id="employee-menu">
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button menu-header" id="menuheader">
+            <i data-feather="clipboard"></i>Employee Menu
+          </button>
+        </li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button menu-button--black" onclick="newRequest()">
+            <i data-feather="edit-2"></i>Submit A Reimbursement Request
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-button" onclick="viewPending()">
+            <i data-feather="link"></i>View Pending Reimbursements
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-button" onclick="viewResolved()">
+            <i data-feather="archive"></i>View Resolved Reimbursements
+          </button>
+        </li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button" onclick="employeeInfo()">
+            <i data-feather="save"></i>View Your Employee Information
+          </button>
+        </li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <button class="menu-button menu-button--delete" onclick="logout();">
+            <i data-feather="trash-2"></i>Log Out
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="../JS/index.js"></script>
+</body>

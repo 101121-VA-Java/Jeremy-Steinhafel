@@ -55,10 +55,25 @@ if (token) {
         if(request.statusID == 1){
             statusTd.innerHTML = "Pending";
         }
+        if(request.statusID == 2){
+            statusTd.innerHTML = "Approved";
+        }
+        if(request.statusID == 3){
+            statusTd.innerHTML = "Denied";
+        }
         
         let typeTd = document.createElement('td');
+        if(request.typeID == 1){
+            typeTd.innerHTML = "Travel";
+        }
         if(request.typeID == 2){
             typeTd.innerHTML = "Lodging";
+        }
+        if(request.typeID == 3){
+            typeTd.innerHTML = "Food";
+        }
+        if(request.typeID == 4){
+            typeTd.innerHTML = "Other";
         }
        
         row.appendChild(amountTd);

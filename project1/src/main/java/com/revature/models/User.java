@@ -1,12 +1,14 @@
 package com.revature.models;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class User implements Serializable {
 
 	private int userID;
 	private String username;
-	private String password;
+	private byte[] passwordHash;
+	private byte[] passwordSalt;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -17,12 +19,13 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(int userID, String username, String password, String firstName, String lastName, String email,
+	public User(int userID, String username, byte[] passwordHash, byte[] passwordSalt, String firstName, String lastName, String email,
 			int roleID) {
 		super();
 		this.userID = userID;
 		this.username = username;
-		this.password = password;
+		this.passwordHash = passwordHash;
+		this.passwordSalt = passwordSalt;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -41,12 +44,20 @@ public class User implements Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getPassword() {
-		return password;
+	public byte[] getPasswordHash() {
+		return passwordHash;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPasswordHash(byte[] passwordHash) {
+		this.passwordHash = passwordHash;
 	}
+	
+	public byte[] getPasswordSalt() {
+		return passwordSalt;
+	}
+	public void setPasswordSalt(byte[] passwordSalt) {
+		this.passwordSalt = passwordSalt;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -79,7 +90,8 @@ public class User implements Serializable {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + Arrays.hashCode(passwordHash);
+		result = prime * result + Arrays.hashCode(passwordSalt);
 		result = prime * result + roleID;
 		result = prime * result + userID;
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
@@ -110,10 +122,9 @@ public class User implements Serializable {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
+		if (!Arrays.equals(passwordHash, other.passwordHash))
+			return false;
+		if (!Arrays.equals(passwordSalt, other.passwordSalt))
 			return false;
 		if (roleID != other.roleID)
 			return false;
@@ -126,5 +137,7 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 		
 }

@@ -19,13 +19,14 @@ public class UserPostgres implements UserDao {
 		try {
 			int userID = rs.getInt("ers_user_id");
 			String username = rs.getString("ers_username");
-			String password = rs.getString("ers_password");
+			byte[] passwordHash = rs.getBytes("ers_password_hash");
+			byte[] passwordSalt = rs.getBytes("ers_password_salt");
 			String firstName = rs.getString("user_first_name");
 			String lastName = rs.getString("user_last_name");
 			String email = rs.getString("user_email");
 			int roleID = rs.getInt("user_role_id");
 			
-			return new User(userID, username, password, firstName, lastName, email, roleID);
+			return new User(userID, username, passwordHash, passwordSalt, firstName, lastName, email, roleID);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -36,7 +37,7 @@ public class UserPostgres implements UserDao {
 
 	@Override
 	public User add(User u) {
-		String sql = "insert into ers_users (ers_user_id, ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id) "
+		String sql = "insert into ers_users (ers_user_id, ers_username, ers_password_hash, ers_password_salt, user_first_name, user_last_name, user_email, user_role_id) "
 				+ "values (?, ?, ?, ?, ?, ?, ?);";
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
@@ -44,11 +45,12 @@ public class UserPostgres implements UserDao {
 
 			ps.setInt(1, u.getUserID());
 			ps.setString(2, u.getUsername());
-			ps.setString(3, u.getPassword());
-			ps.setString(4, u.getFirstName());
-			ps.setString(5, u.getLastName());
-			ps.setString(6, u.getEmail());
-			ps.setInt(7, u.getRoleID());
+			ps.setBytes(3, u.getPasswordHash());
+			ps.setBytes(4, u.getPasswordSalt());
+			ps.setString(5, u.getFirstName());
+			ps.setString(6, u.getLastName());
+			ps.setString(7, u.getEmail());
+			ps.setInt(8, u.getRoleID());
 			
 
 			ps.execute();
@@ -106,12 +108,13 @@ public class UserPostgres implements UserDao {
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			ps.setString(1, u.getUsername());
-			ps.setString(2, u.getPassword());
-			ps.setString(3, u.getFirstName());
-			ps.setString(4, u.getLastName());
-			ps.setString(5, u.getEmail());
-			ps.setInt(6, u.getRoleID());
-			ps.setInt(7, u.getUserID());
+			ps.setBytes(2, u.getPasswordHash());
+			ps.setBytes(3, u.getPasswordSalt());
+			ps.setString(4, u.getFirstName());
+			ps.setString(5, u.getLastName());
+			ps.setString(6, u.getEmail());
+			ps.setInt(7, u.getRoleID());
+			ps.setInt(8, u.getUserID());
 
 			rowsChanged = ps.executeUpdate();
 		} catch (SQLException | IOException e) {
@@ -142,5 +145,26 @@ public class UserPostgres implements UserDao {
 			return u;
 		}
 	}
+	
+	@Override
+	public User getUserByUsername(String username) {
+		String sql = "select * from ers_users where ers_username = ?;";
+		User u = null;
+		
+		try(Connection con = ConnectionUtil.getConnectionFromFile()){
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				return makeNewUser(rs);
+							}
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
+	
 
 }

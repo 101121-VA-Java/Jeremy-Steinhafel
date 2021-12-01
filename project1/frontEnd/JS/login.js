@@ -1,7 +1,3 @@
-document.getElementById("submitButton").addEventListener("click", login);
-
-
-
 function login(){
 
     let api1 = "http://localhost:8080/login";
@@ -37,10 +33,10 @@ function login(){
             let role = tokenArr[1];
             
             if(role == 1){
-               window.location.href="../index.html"; 
+               window.location.href="../HTML/index.html"; 
             }
             if(role == 2){
-                window.location.href="managerHome.html";
+                window.location.href="../HTML/managerHome.html";
             }
 
         } else if (xhr.readyState === 4){
