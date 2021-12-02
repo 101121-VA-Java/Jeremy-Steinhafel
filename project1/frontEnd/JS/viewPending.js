@@ -54,10 +54,10 @@ if (token) {
         
         let typeTd = document.createElement('td');
         if(request.typeID == 1){
-            typeTd.innerHTML = "Travel";
+            typeTd.innerHTML = "Lodging";
         }
         if(request.typeID == 2){
-            typeTd.innerHTML = "Lodging";
+            typeTd.innerHTML = "Travel";
         }
         if(request.typeID == 3){
             typeTd.innerHTML = "Food";

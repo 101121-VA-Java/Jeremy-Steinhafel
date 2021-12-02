@@ -6,10 +6,18 @@
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous"
   />
+  <link
+    rel="stylesheet"
+    href="../CSS/main.css"
+  />
 </head>
-<body class="bg-secondary">
+<body>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
   <!-- Amount, Type, Description -->
-  <a href="index.html">GO BACK TO HOME</a>
+  <h1><a href="index.html">&#x2190</a></h1>
   <br />
   <br />
   <br />
@@ -21,7 +29,6 @@
         <input type="number" id="amount" />
 
         <br />
-        <br />
 
         <label><b>Choose a Reimbursement Type: </b></label>
         <select id="reimbursementType">
@@ -32,22 +39,25 @@
         </select>
 
         <br />
-        <br />
 
         <label><b>Description:</b></label>
-        <br />
         <textarea id="description" cols="30" rows="10"></textarea>
       </div>
       <div id="error-div"></div>
+      <div class="text-center">
+        <button type="button" onclick="submitReimbursement()" class="btn">
+          Submit Request
+        </button>
+      </div>
     </form>
 
     <br />
     <br />
-    <div class="text-center">
-      <button onclick="submitReimbursement()" class="btn">
+    <!-- <div class="text-center">
+      <button type="button" onclick="submitReimbursement()" class="btn">
         Submit Request
       </button>
-    </div>
+    </div> -->
   </div>
   <script src="../JS/newRequest.js"></script>
 </body>

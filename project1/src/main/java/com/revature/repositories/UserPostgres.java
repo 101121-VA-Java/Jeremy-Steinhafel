@@ -100,7 +100,7 @@ public class UserPostgres implements UserDao {
 
 	@Override
 	public boolean update(User u) {
-		String sql = "update ers_users set ers_username = ?, ers_password = ?, user_first_name = ?, user_last_name = ?, user_email = ?, user_role_id = ? "
+		String sql = "update ers_users set ers_username = ?, ers_password_hash = ?, ers_password_salt = ?, user_first_name = ?, user_last_name = ?, user_email = ?, user_role_id = ? "
 				+ "where ers_user_id = ?;" ;
 		
 		int rowsChanged = -1;
