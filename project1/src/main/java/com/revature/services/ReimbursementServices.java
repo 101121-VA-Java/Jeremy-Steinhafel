@@ -9,11 +9,14 @@ import com.revature.models.ReimbursementStatus;
 import com.revature.models.User;
 import com.revature.repositories.ReimbursementDao;
 import com.revature.repositories.ReimbursementPostgres;
+import com.revature.repositories.UserDao;
+import com.revature.repositories.UserPostgres;
 
 
 public class ReimbursementServices {
 	
 	ReimbursementDao rd = new ReimbursementPostgres();
+	UserDao ud = new UserPostgres();
 	
 	public Reimbursement createNewReimbursement(int token_id, double amount, int reimbursementType, String description){
 		
@@ -108,6 +111,12 @@ public class ReimbursementServices {
 		List<Reimbursement> reimbursements = rd.getByAuthorID(id);
 		
 		return reimbursements;
+	}
+	
+	public User getUserByReimbID(int ReimbID) {
+		Reimbursement r = rd.getByID(ReimbID);
+		User u = ud.getByID(r.getAuthor());
+		return u;
 	}
 	
 	

@@ -87,7 +87,7 @@ function dragElement(elmnt) {
     pos3 = e.clientX;
     pos4 = e.clientY;
     // set the element's new position:
-    elmnt.style.removeProperty("right");
+    
     elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
     elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
   }
@@ -96,5 +96,37 @@ function dragElement(elmnt) {
     // stop moving when mouse button is released:
     document.onmouseup = null;
     document.onmousemove = null;
+  }
+}
+
+function collapseManagerMenu(){
+  list2 = document.getElementById("manager-list-2");
+  list3 = document.getElementById("manager-list-3");
+  list4 = document.getElementById("manager-list-4");
+  if(list2.style.display == "block"){
+    list2.style.display = "none";
+    list3.style.display = "none";
+    list4.style.display = "none";
+  }else {
+    list2.style.display = "block";
+    list3.style.display = "block";
+    list4.style.display = "block";
+  }
+}
+
+
+function collapseEmployeeMenu(){
+  list2 = document.getElementById("employee-list-2");
+  list3 = document.getElementById("employee-list-3");
+  list4 = document.getElementById("employee-list-4");
+  if(list2.style.display == "block"){
+    list2.style.display = "none";
+    list3.style.display = "none";
+    list4.style.display = "none";
+    
+  } else {
+    list2.style.display = "block";
+    list3.style.display = "block";
+    list4.style.display = "block";
   }
 }

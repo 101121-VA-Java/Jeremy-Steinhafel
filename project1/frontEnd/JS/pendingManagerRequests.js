@@ -108,6 +108,7 @@ function showApproveOrDeny(checkbox, reimbursementID) {
   
   if (checkbox.checked) {
     reimbursementIDArray.push(reimbursementID);
+    console.log(reimbursementIDArray);
   } else {
     for (let i = 0; i < reimbursementIDArray.length; i++) {
       if (reimbursementID == reimbursementIDArray[i]) {
@@ -150,7 +151,7 @@ async function approve() {
   }
 }
 
-async function deny(reimbursementIDArray) {
+async function deny() {
   console.log(reimbursementIDArray);
 
   if (reimbursementIDArray.length == 0) return;

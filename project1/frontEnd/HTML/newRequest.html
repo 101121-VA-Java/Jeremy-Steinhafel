@@ -1,37 +1,53 @@
 <!DOCTYPE html>
-<head></head>
-<body>
+<head>
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+  />
+</head>
+<body class="bg-secondary">
   <!-- Amount, Type, Description -->
   <a href="index.html">GO BACK TO HOME</a>
   <br />
   <br />
   <br />
-  <form>
-    <div class="container">
-      <label><b>Amount For Reimbursement:</b></label>
-      <input type="number" id="amount" />
+  <div class="container d-flex flex-column justify-content-center">
+    <form class="text-center">
+      <div class="container">
+        <h3>Create A New Reimbursement Request</h3>
+        <label><b>Amount For Reimbursement: </b></label>
+        <input type="number" id="amount" />
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      <label>Choose a Reimbursement Type</label>
-      <select id="reimbursementType">
-        <option value="1">Lodging</option>
-        <option value="2">Travel</option>
-        <option value="3">Food</option>
-        <option value="4">Other</option>
-      </select>
+        <label><b>Choose a Reimbursement Type: </b></label>
+        <select id="reimbursementType">
+          <option value="1">Lodging</option>
+          <option value="2">Travel</option>
+          <option value="3">Food</option>
+          <option value="4">Other</option>
+        </select>
 
-      <br />
-      <br />
+        <br />
+        <br />
 
-      <label><b>Description</b></label>
-      <textarea id="description" cols="30" rows="10"></textarea>
+        <label><b>Description:</b></label>
+        <br />
+        <textarea id="description" cols="30" rows="10"></textarea>
+      </div>
+      <div id="error-div"></div>
+    </form>
+
+    <br />
+    <br />
+    <div class="text-center">
+      <button onclick="submitReimbursement()" class="btn">
+        Submit Request
+      </button>
     </div>
-    <div id="error-div"></div>
-  </form>
-  <br />
-  <br />
-  <button onclick="submitReimbursement()">Submit Request</button>
+  </div>
   <script src="../JS/newRequest.js"></script>
 </body>

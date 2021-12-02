@@ -6,7 +6,13 @@ import io.javalin.http.HttpCode;
 import java.util.List;
 
 import com.revature.models.Reimbursement;
+import com.revature.models.User;
 import com.revature.services.ReimbursementServices;
+
+import org.apache.commons.mail.*;
+import io.javalin.Javalin;
+import static j2html.TagCreator.*;
+
 
 public class ReimbursementController {
 	
@@ -65,6 +71,20 @@ public class ReimbursementController {
 	}
 	
 	public static void approveRequests(Context ctx) {
+		Email email = new SimpleEmail();
+		email.setHostName("smtp.googlemail.com");
+        email.setSmtpPort(465);
+        email.setAuthenticator(new DefaultAuthenticator("js.reimbursement.app@gmail.com", "Reimbursements1!"));
+        email.setSSLOnConnect(true);
+        try {
+			email.setFrom("js.reimbursement.app@gmail.com");
+			email.setSubject("Reimbursement Request Approved");
+			email.setMsg("Your recent request for reimbursement has been approved!");
+		} catch (EmailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		String token = ctx.header("Authorization");
 		if(token == null) {
 			ctx.status(HttpCode.BAD_REQUEST);
@@ -76,10 +96,33 @@ public class ReimbursementController {
 		for(int i = 0; i < approvalArray.length; i++) {
 			int approveID = Integer.parseInt(approvalArray[i]);
 			rs.approveByReimbID(approveID, token_id);
+			User u = rs.getUserByReimbID(approveID);
+			try {
+				email.addTo(u.getEmail());
+				email.send();
+			} catch (EmailException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public static void denyRequests(Context ctx) {
+		Email email = new SimpleEmail();
+		email.setHostName("smtp.googlemail.com");
+        email.setSmtpPort(465);
+        email.setAuthenticator(new DefaultAuthenticator("js.reimbursement.app@gmail.com", "Reimbursements1!"));
+        email.setSSLOnConnect(true);
+        try {
+			email.setFrom("rockpilestudios@gmail.com");
+			email.setSubject("Reimbursement Request Denied");
+			email.setMsg("Your recent request for reimbursement has been denied.");
+		} catch (EmailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        
 		String token = ctx.header("Authorization");
 		if(token == null) {
 			ctx.status(HttpCode.BAD_REQUEST);
@@ -90,6 +133,14 @@ public class ReimbursementController {
 		for(int i = 0; i < denialArray.length; i++) {
 			int denialID = Integer.parseInt(denialArray[i]);
 			rs.denyByReimbID(denialID, token_id);
+			User u = rs.getUserByReimbID(denialID);
+			try {
+				email.addTo(u.getEmail());
+				email.send();
+			} catch (EmailException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}

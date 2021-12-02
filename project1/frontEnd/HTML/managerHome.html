@@ -19,14 +19,14 @@
    -->
   <div class="container">
     <div class="menu" id="manager-menu">
-      <ul class="menu-list">
+      <ul class="menu-list" id="manager-list-1">
         <li class="menu-item">
-          <button class="menu-button menu-header">
+          <button class="menu-button menu-header" ondblclick="collapseManagerMenu()">
             <i data-feather="clipboard"></i>Manager Menu
           </button>
         </li>
       </ul>
-      <ul class="menu-list">
+      <ul class="menu-list" id="manager-list-2">
         <li class="menu-item">
           <button class="menu-button menu-button--black" onclick="pendingManagerRequests()">
             <i data-feather="edit-2"></i>View All Pending Reimbursement Requests From Users
@@ -38,14 +38,14 @@
           </button>
         </li>
       </ul>
-      <ul class="menu-list">
+      <ul class="menu-list" id="manager-list-3">
         <li class="menu-item">
           <button class="menu-button" onclick="viewAllEmployees()">
             <i data-feather="archive"></i>View All Users
           </button>
         </li>
       </ul>
-      <ul class="menu-list">
+      <ul class="menu-list" id="manager-list-4">
         <li class="menu-item">
           <button class="menu-button menu-button--delete" onclick="logout();">
             <i data-feather="trash-2"></i>Log Out
@@ -56,12 +56,12 @@
     <div class="menu" id="employee-menu">
       <ul class="menu-list">
         <li class="menu-item">
-          <button class="menu-button menu-header">
+          <button class="menu-button menu-header" ondblclick="collapseEmployeeMenu()">
             <i data-feather="clipboard"></i>Employee Menu
           </button>
         </li>
       </ul>
-      <ul class="menu-list">
+      <ul class="menu-list" id="employee-list-2">
         <li class="menu-item">
           <button class="menu-button menu-button--black" onclick="newRequest()">
             <i data-feather="edit-2"></i>Submit A Reimbursement Request
@@ -78,14 +78,14 @@
           </button>
         </li>
       </ul>
-      <ul class="menu-list">
+      <ul class="menu-list" id="employee-list-3">
         <li class="menu-item">
           <button class="menu-button" onclick="employeeInfo()">
             <i data-feather="save"></i>View Your Employee Information
           </button>
         </li>
       </ul>
-      <ul class="menu-list">
+      <ul class="menu-list" id="employee-list-4">
         <li class="menu-item">
           <button class="menu-button menu-button--delete" onclick="logout();">
             <i data-feather="trash-2"></i>Log Out

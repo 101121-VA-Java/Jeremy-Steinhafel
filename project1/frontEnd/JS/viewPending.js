@@ -11,12 +11,8 @@ if (token) {
     window.location.href= "login.html";
  }
 
-//  if(window.location.href="viewPending.html"){
-//     viewPending();
-//  }
-
  async function viewPending(){
-    let api1 = "http://localhost:8080/reimbursementRequests/viewPending";
+    let api1 = "http://localhost:8080/reimbursementRequests/pending";
 
     let response = await fetch(api1, {
         headers: {
@@ -57,8 +53,17 @@ if (token) {
         }
         
         let typeTd = document.createElement('td');
+        if(request.typeID == 1){
+            typeTd.innerHTML = "Travel";
+        }
         if(request.typeID == 2){
             typeTd.innerHTML = "Lodging";
+        }
+        if(request.typeID == 3){
+            typeTd.innerHTML = "Food";
+        }
+        if(request.typeID == 4){
+            typeTd.innerHTML = "Other";
         }
        
         row.appendChild(amountTd);

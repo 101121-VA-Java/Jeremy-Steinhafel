@@ -81,3 +81,19 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
+function collapseEmployeeMenu(){
+  list2 = document.getElementById("employee-list-2");
+  list3 = document.getElementById("employee-list-3");
+  list4 = document.getElementById("employee-list-4");
+  if(list2.style.display == "block"){
+    list2.style.display = "none";
+    list3.style.display = "none";
+    list4.style.display = "none";
+    
+  } else {
+    list2.style.display = "block";
+    list3.style.display = "block";
+    list4.style.display = "block";
+  }
+}

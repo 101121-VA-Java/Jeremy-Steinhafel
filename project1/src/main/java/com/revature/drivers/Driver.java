@@ -49,7 +49,7 @@ public class Driver {
 				path("submitRequest", () ->{
 					post(ReimbursementController::submitRequest);
 				});
-				path("viewPending", () ->{
+				path("pending", () ->{
 					get(ReimbursementController::viewPending);
 				});
 				path("viewResolved", () ->{

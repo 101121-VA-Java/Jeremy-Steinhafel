@@ -23,9 +23,10 @@ body {
 .menu {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-bg-secondary);
+  background-color: rgba(255,255,255,0.13);
   border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(64, 64, 64, 0.15);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  border: 2px solid rgba(255,255,255,0.1);
   position: absolute;
   z-index: 9;
 }
@@ -70,10 +71,12 @@ body {
   display: flex;
   align-items: center;
   position: relative;
-  background-color: var(--color-bg-secondary);
+  background-color: rgba(255,255,255,0);
+  color: white;
 }
 .menu-button:hover {
   background-color: var(--color-bg-primary-offset);
+  color: black;
 }
 .menu-button:hover + .menu-sub-list {
   display: flex;
@@ -125,4 +128,12 @@ body {
 .menu-header {
   cursor: move;
   z-index: 10;
+}
+
+.menu-header:hover{
+  color: var(--color-green);
+}
+
+.menu-header:hover svg:first-of-type {
+  stroke: var(--color-green);
 }
