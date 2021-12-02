@@ -5,6 +5,9 @@ import static io.javalin.apibuilder.ApiBuilder.path;
 import static io.javalin.apibuilder.ApiBuilder.post;
 import static io.javalin.apibuilder.ApiBuilder.put;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.models.User;
 import com.revature.services.LoginServices;
 
@@ -16,6 +19,7 @@ import io.javalin.http.HttpCode;
 public class LoginController {
 	
 	public static LoginServices ls = new LoginServices();
+	private static Logger log = LogManager.getRootLogger();
 
 	public static void login(Context ctx){
 		
@@ -30,6 +34,7 @@ public class LoginController {
 			ctx.status(HttpCode.OK);
 		} else {
 			ctx.status(HttpCode.NOT_FOUND);
+			log.error("Token Null! Login Controller");
 		}
 	}
 

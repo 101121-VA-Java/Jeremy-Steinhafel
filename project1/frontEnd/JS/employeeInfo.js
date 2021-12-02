@@ -32,22 +32,22 @@ async function viewInformation() {
 
   let usernameTd = document.createElement("td");
   usernameTd.innerHTML =
-    "<input type='checkbox' id='username'></input>" +
+    "<input type='checkbox' id='username' style='height:20px; width:20px; margin-bottom: 20px;'></input>" +
     employeeInformation.username;
 
   let firstNameTd = document.createElement("td");
   firstNameTd.innerHTML =
-    "<input type='checkbox' id='first-name'></input>" +
+    "<input type='checkbox' id='first-name' style='height:20px; width:20px; margin-bottom: 20px;'></input>" +
     employeeInformation.firstName;
 
   let lastNameTd = document.createElement("td");
   lastNameTd.innerHTML =
-    "<input type='checkbox' id='last-name'></input>" +
+    "<input type='checkbox' id='last-name' style='height:20px; width:20px; margin-bottom: 20px;'></input>" +
     employeeInformation.lastName;
 
   let emailTd = document.createElement("td");
   emailTd.innerHTML =
-    "<input type='checkbox' id='email'></input>" + employeeInformation.email;
+    "<input type='checkbox' id='email' style='height:20px; width:20px; margin-bottom: 20px;'></input>" + employeeInformation.email;
 
   row.appendChild(usernameTd);
   row.appendChild(firstNameTd);

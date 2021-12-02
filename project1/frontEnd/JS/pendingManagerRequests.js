@@ -40,7 +40,7 @@ async function viewPending() {
     let row = document.createElement("tr");
 
     let selectReimbursement = document.createElement("td");
-    selectReimbursement.innerHTML = `<input type="checkbox" id="${checkboxID}" name="checkbox" onclick="showApproveOrDeny(this, ${request.reimbursementID})"></input>`;
+    selectReimbursement.innerHTML = `<input type="checkbox" class="check-box" id="${checkboxID}" name="checkbox" onclick="showApproveOrDeny(this, ${request.reimbursementID})"></input>`;
 
     let reimbursementIDTd = document.createElement("td");
     reimbursementIDTd.innerHTML = request.reimbursementID;
@@ -119,7 +119,7 @@ function showApproveOrDeny(checkbox, reimbursementID) {
   if (reimbursementIDArray.length > 0) {
     document.getElementById(
       "accept-or-reject"
-    ).innerHTML = `<button onclick="approve()">Approve</button><button onclick="deny()">Deny</button>`;
+    ).innerHTML = `<button onclick="approve()" style="width:200px; margin-right: 20px;">Approve</button><button style="width:200px;" onclick="deny()">Deny</button>`;
   } else {
     document.getElementById("accept-or-reject").innerHTML = "";
   }

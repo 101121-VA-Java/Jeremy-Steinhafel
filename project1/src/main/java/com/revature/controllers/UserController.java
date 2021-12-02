@@ -10,9 +10,13 @@ import com.revature.models.User;
 import com.revature.services.ReimbursementServices;
 import com.revature.services.UserServices;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class UserController {
 
 	public static UserServices us = new UserServices();
+	private static Logger log = LogManager.getRootLogger();
 	
 	public static void getEmployeeByID(Context ctx) {
 		String token = ctx.header("Authorization");
@@ -26,6 +30,7 @@ public class UserController {
 		} else {
 //			ctx.status(404);
 			ctx.status(HttpCode.NOT_FOUND);
+			log.error("get user by id not found!");
 		}
 	}
 	
@@ -66,6 +71,7 @@ public class UserController {
 			ctx.status(HttpCode.OK);
 		} else {
 			ctx.status(HttpCode.NOT_FOUND);
+			log.error("get all users not found!");
 		}
 	}
 	

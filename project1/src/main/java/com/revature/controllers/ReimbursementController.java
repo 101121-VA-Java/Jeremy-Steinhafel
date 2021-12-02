@@ -10,13 +10,20 @@ import com.revature.models.User;
 import com.revature.services.ReimbursementServices;
 
 import org.apache.commons.mail.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import io.javalin.Javalin;
 import static j2html.TagCreator.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class ReimbursementController {
 	
 	public static ReimbursementServices rs = new ReimbursementServices();
+	private static Logger log = LogManager.getRootLogger();
 
 	public static void submitRequest(Context ctx) {
 		String amountString = ctx.formParam("amount");
@@ -83,6 +90,7 @@ public class ReimbursementController {
 		} catch (EmailException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.error("Approve requests email error!");
 		}
 		
 		String token = ctx.header("Authorization");
@@ -103,6 +111,7 @@ public class ReimbursementController {
 			} catch (EmailException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				log.error("Accept email login error!");
 			}
 		}
 	}
@@ -120,6 +129,7 @@ public class ReimbursementController {
 		} catch (EmailException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.error("Deny email login error!");
 		}
         
         
@@ -140,6 +150,7 @@ public class ReimbursementController {
 			} catch (EmailException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				log.error("Deny email login error!");
 			}
 		}
 		

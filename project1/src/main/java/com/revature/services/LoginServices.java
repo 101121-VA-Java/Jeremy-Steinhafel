@@ -11,11 +11,16 @@ import java.util.Arrays;
 import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.spec.PBEKeySpec;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.crypto.SecretKeyFactory;
 
 public class LoginServices {
 
 	UserDao ud = new UserPostgres();
+	private static Logger log = LogManager.getRootLogger();
 
 	public String loginCheck(String username, String password) {
 		String token = null;
@@ -38,6 +43,7 @@ public class LoginServices {
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.error("Password Error! Login Services");
 		}
 
 		return null;

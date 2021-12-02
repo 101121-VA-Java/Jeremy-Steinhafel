@@ -130,3 +130,18 @@ table {
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
 }
+
+#employee-update-button{
+  width: 200px;
+}
+
+#employee-update-checkbox{
+  width: 20px;
+  height: 20px;
+}
+
+.check-box {
+  width: 20px;
+  height: 20px;
+  margin-top: 0px;
+}

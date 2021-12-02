@@ -26,13 +26,67 @@ public class ReimbursementServicesTest {
 	private ReimbursementServices rs;
 	
 	@Test
-	public void getEmployeeByIDTest() {
-//		Mockito.when(up.getByID(1)).thenReturn(new User());
-////		Mockito.doReturn(User.class).when(2).getParameterType(int);
-//		
-//		User expected = new User();
-//		User actual = us.getEmployeeByID(1);
-//		assertEquals(expected, actual);
+	public void creatNewReimbursementTest() {
+		Mockito.when(rp.add(new Reimbursement())).thenReturn(new Reimbursement());
+
+		Reimbursement expected = new Reimbursement();
+		Reimbursement actual = rs.createNewReimbursement(0, 0, 0, null);
+		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void getPendingByAuthorIDTest() {
+//		Mockito.when(rp.getByAuthorID(1).thenReturn(new Reimbursement());
+
+		Reimbursement expected = new Reimbursement();
+		Reimbursement actual = rs.createNewReimbursement(0, 0, 0, null);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void getResolvedByAuthorIDTest() {
+		Mockito.when(rp.add(new Reimbursement())).thenReturn(new Reimbursement());
+
+		Reimbursement expected = new Reimbursement();
+		Reimbursement actual = rs.createNewReimbursement(0, 0, 0, null);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void getAllPendingRequestsTest() {
+		Mockito.when(rp.add(new Reimbursement())).thenReturn(new Reimbursement());
+
+		Reimbursement expected = new Reimbursement();
+		Reimbursement actual = rs.createNewReimbursement(0, 0, 0, null);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void approveByReimbIDTest() {
+		Mockito.when(rp.add(new Reimbursement())).thenReturn(new Reimbursement());
+
+		Reimbursement expected = new Reimbursement();
+		Reimbursement actual = rs.createNewReimbursement(0, 0, 0, null);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void denyByReimbIDTest() {
+		Mockito.when(rp.add(new Reimbursement())).thenReturn(new Reimbursement());
+
+		Reimbursement expected = new Reimbursement();
+		Reimbursement actual = rs.createNewReimbursement(0, 0, 0, null);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void getAllByAuthorIDTest() {
+		Mockito.when(rp.add(new Reimbursement())).thenReturn(new Reimbursement());
+
+		Reimbursement expected = new Reimbursement();
+		Reimbursement actual = rs.createNewReimbursement(0, 0, 0, null);
+		assertEquals(expected, actual);
+	}
+
 
 }
